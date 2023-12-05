@@ -1,3 +1,7 @@
+---
+description: Yet another Discord mod
+---
+
 <h3 align="center">
   <img src="./img/wordmark.png" alt="moonlight" />
 
