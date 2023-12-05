@@ -1,9 +1,9 @@
 <h3 align="center">
   <img src="./img/wordmark.png" alt="moonlight" />
 
-<a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
-\- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
-\- <a href="https://moonlight-mod.github.io/">Docs</a>
+  <a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
+  {" "}- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
+  {" "}- <a href="https://moonlight-mod.github.io/">Docs</a>
 
   <hr />
 </h3>
