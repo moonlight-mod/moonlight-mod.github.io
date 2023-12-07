@@ -1,6 +1,6 @@
 # Installation
 
-There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. Until the installer is stabilized, manual installations are suggested **moonlight is currently experimental and is not suggested for end users. If you are not a developer, please refrain from installing moonlight at this time.**
+There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. Until the installer is stabilized, manual installations are suggested. **moonlight is currently experimental and is not suggested for end users. If you are not a developer, please refrain from installing moonlight at this time.**
 
 ## moonlight-installer
 
