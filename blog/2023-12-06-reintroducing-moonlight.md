@@ -17,7 +17,7 @@ Despite moonlight being inspired from some other client mods, we don't intend fo
 
 ## Getting started with moonlight
 
-For installing moonlight, refer to [manual instructions](/docs/using/install) or [our experimental GUI installer](https://github.com/moonlight-mod/moonlight-installer). For extension development, see [this documentation entry](/docs/ext-dev/getting-started). The [documentation tab](/docs) has lots of information on setting up development environments for extensions and moonlight itself.
+For installing moonlight, refer to [manual instructions](/docs/using/install) or [our experimental GUI installer](https://github.com/moonlight-mod/moonlight-installer). For extension development, see [this documentation entry](/docs/ext-dev/getting-started). The documentation tab has lots of information on setting up development environments for extensions and moonlight itself.
 
 If you feel like anything's unclear, please [let us know in our Discord server](https://discord.gg/FdZBTFCP6F) or [make a pull request to this website](https://github.com/moonlight-mod/moonlight-mod.github.io).
 
