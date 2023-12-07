@@ -4,8 +4,23 @@ While moonlight allows you to use custom repositories from URLs, it comes with a
 
 ## Submitting a pull request
 
-First, you must have a `.asar` file containing the `manifest.json` and entrypoints. The [sample extension](/docs/ext-dev/getting-started) automatically builds this, so if you use it, it is suggested to simply download and commit the built file from GitHub Pages.
+There are some requirements for submission:
 
-The manifest must contain an `id`, `version`, and `meta.source`. The ID and version can be any unique string, and the source must be a URL to the repository where your code is located in. Then, create a pull request to [the official repository][extensions] with the `.asar` in the `exts/` folder. After merge, it will automatically show up for all moonlight users.
+- Your plugin must be open source on a Git repository.
+- Your plugin must use pnpm.
+- Your plugin manifest must contain an `id`, `version`, and `meta.source`. The ID and version can be any unique string, and the source must be a URL to the repository where your code is located in.
+
+Then, create a pull request to [the official repository][extensions], adding a manifest. A manifest is a JSON object that looks like this:
+
+```json
+{
+  "repository": "https://github.com/Cynosphere/moonlight-extensions.git",
+  "commit": "accf381859ca72eb624abc9ce04ec30c21982a87",
+  "scripts": ["build", "repo"],
+  "artifact": "repo/platformStyles.asar"
+}
+```
+
+`repository` must be a valid HTTPS Git URL. `commit` must be a valid commit in that repository. `scripts` is an array of pnpm scripts to build your project - for repositories using the sample extension, this will be `build` and `repo`. `artifact` is the location of the output file - for repositories using the sample extension, this will be `repo/<extension id>.asar`.
 
 [extensions]: <https://github.com/moonlight-mod/extensions>
