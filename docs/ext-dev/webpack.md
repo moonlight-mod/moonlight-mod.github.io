@@ -34,6 +34,8 @@ You can also set the `type` field in `replace` to `PatchReplaceType.Module`, in 
 
 When `match` is a regex and `replacement` is a function, it will be passed the groups matched in the regex. This is useful for capturing and reusing the minified variable names.
 
+Inside of patches, you have access to `module`, `exports`, and `require`. You can use the Webpack require function to load [your own Webpack modules](#webpack-module-insertion).
+
 ### Examples
 
 #### Using a regex for a match

@@ -10,6 +10,7 @@ const config = {
 
   url: "https://moonlight-mod.github.io",
   baseUrl: "/",
+  staticDirectories: ["static"],
 
   organizationName: "moonlight-mod",
   projectName: "moonlight-mod.github.io",
@@ -33,6 +34,10 @@ const config = {
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")
+        },
+        blog: {
+          blogSidebarTitle: "Posts",
+          blogSidebarCount: "ALL"
         }
       })
     ]
@@ -54,6 +59,11 @@ const config = {
             sidebarId: "sidebar",
             position: "left",
             label: "Docs"
+          },
+          {
+            to: "blog",
+            label: "Blog",
+            position: "left"
           },
           {
             href: "https://github.com/moonlight-mod/moonlight",

@@ -1,6 +1,14 @@
 # Installation
 
-moonlight in its current stage does not have any installer, but you can install it manually.
+There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. Until the installer is stabilized, manual installations are suggested **moonlight is currently experimental and is not suggested for end users. If you are not a developer, please refrain from installing moonlight at this time.**
+
+## moonlight-installer
+
+An [experimental installer](https://github.com/moonlight-mod/moonlight-installer) exists, but it is a work in progress. Binaries are available through GitHub Actions. It currently features little error handling and lack of support for some platforms (particularly Linux).
+
+To use it, download and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine.
+
+## Manual installations
 
 - [Build moonlight](/docs/dev/setup).
 - Go to your Discord install's `resources` folder.
@@ -21,7 +29,7 @@ moonlight in its current stage does not have any installer, but you can install 
 >
 > ```js
 > require("/path/to/moonlight/dist/injector").inject(
->   require.resolve("../_app.asar")
+>   require("path").join(__dirname, "../_app.asar")
 > );
 > ```
 
