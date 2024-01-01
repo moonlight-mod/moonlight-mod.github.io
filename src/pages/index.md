@@ -7,7 +7,7 @@ description: Yet another Discord mod
 
   <a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
   {" "}- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
-  {" "}- <a href="https://moonlight-mod.github.io/">Docs</a>
+  {" "}- <a href="https://moonlight-mod.github.io/docs/using/install">Docs</a>
 
   <hr />
 </h3>
