@@ -29,7 +29,7 @@ moonlight functions under two release channels: a stable channel (published to G
 
 ## Embracing the freedom to develop
 
-We care about the freedom to do what you want with extension development. moonlight is open source under the [AGPL-3.0-or-later license](https://github.com/moonlight-mod/moonlight/blob/main/LICENSE).
+We care about the freedom to do what you want with extension development. moonlight is open source under the [LGPL-3.0-or-later license](https://github.com/moonlight-mod/moonlight/blob/main/LICENSE).
 
 Extensions can be loaded from disk, the official extension repository, or remote extension repositories. Anyone can create their own extension repository and publish their own extensions; while submitting to the official extension repository is encouraged, it isn't required. Custom extension repositories are a single .json file that contain URLs to .asar files. The [sample extension](https://github.com/moonlight-mod/sample-extension) publishes the extensions you write as an extension repository to GitHub Pages - everything you need to create a custom extension repository is done for you automatically.
 
