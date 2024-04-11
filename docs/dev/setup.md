@@ -26,7 +26,7 @@ moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces). The proj
   - receives the loaded config and detected extensions from `node-preload`
   - loads extensions and installs their Webpack modules and patches
 - `core-extensions`: built-in extensions that come with every moonlight install, mostly libraries
-- `types`: types for moonlight's core, core extensions, and plugin manifests/exports
+- `types`: types for moonlight's core, core extensions, and extension manifests/exports
 
 ## Build system
 

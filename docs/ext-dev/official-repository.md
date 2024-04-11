@@ -6,9 +6,9 @@ While moonlight allows you to use custom repositories from URLs, it comes with a
 
 There are some requirements for submission:
 
-- Your plugin must be open source on a Git repository.
-- Your plugin must use pnpm.
-- Your plugin manifest must contain an `id`, `version`, and `meta.source`. The ID and version can be any unique string, and the source must be a URL to the repository where your code is located in.
+- Your extension must be open source on a Git repository.
+- Your extension must use pnpm.
+- Your extension manifest must contain an `id`, `version`, and `meta.source`. The ID and version can be any unique string, and the source must be a URL to the repository where your code is located in.
 
 Then, create a pull request to [the official repository][extensions], adding a manifest. A manifest is a JSON object that looks like this:
 

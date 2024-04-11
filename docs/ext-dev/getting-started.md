@@ -35,7 +35,7 @@ Add the following to your moonlight config:
 
 where `/path/to/sample-extension` is the folder you cloned the repository into. After restarting your client, the extension will load.
 
-When your extension is ready, you can [distribute the plugin on a custom repository](#publishing-to-github-pages) or [submit to the official repository](/docs/ext-dev/official-repository).
+When your extension is ready, you can [distribute the extension on a custom repository](#publishing-to-github-pages) or [submit to the official repository](/docs/ext-dev/official-repository).
 
 ## Project structure
 
