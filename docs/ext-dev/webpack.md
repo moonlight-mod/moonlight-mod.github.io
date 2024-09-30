@@ -54,7 +54,7 @@ export const patches: Patch[] = [
 ];
 ```
 
-### Using a function as a replacement
+#### Using a function as a replacement
 
 ```ts
 // From Settings

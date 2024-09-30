@@ -50,6 +50,6 @@ Our roadmap for what we want to do with moonlight is powered by the community. W
 - Please report bugs [on GitHub issues](https://github.com/moonlight-mod/moonlight/issues), or if you must, in [the Discord server](https://discord.gg/FdZBTFCP6F).
 - Please **don't** share this with all of your friends and go "OMG NEW CLIENT MOD". Having a bunch of end users trying to use a client mod that's an active work in progress is a massive headache.
 
-Thanks for reading, and hopefully you enjoy moonlight! <3
+Thanks for reading, and hopefully you enjoy moonlight! \<3
 
 <!-- meow -->
