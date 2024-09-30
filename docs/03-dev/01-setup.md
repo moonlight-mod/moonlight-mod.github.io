@@ -1,3 +1,7 @@
+---
+description: Information on moonlight's project structure and build system
+---
+
 # Project setup
 
 ## Building from source

@@ -1,5 +1,7 @@
 # Pitfalls
 
+There are some important pitfalls you may encounter when writing moonlight extensions.
+
 ## Web vs Node.js
 
 Because of the Electron process model, extensions have two entrypoints: one on the web side (where the actual Discord app runs) and one on the Node.js side (where DiscordNative and such live).

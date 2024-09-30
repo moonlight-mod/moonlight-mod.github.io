@@ -1,3 +1,7 @@
+---
+description: Information on getting started with the sample extension
+---
+
 # Getting started
 
 A sample extension is provided to start development quickly:
