@@ -70,9 +70,9 @@ const myElement = <span>Hi!</span>;
 const myElement = React.createElement("span", null, "Hi!");
 ```
 
-Because of this, you need to make sure the React variable is in scope. The easiest way to do this is to use the Common core extension:
+Because of this, you need to make sure the React variable is in scope. `react` is automatically populated as a Webpack module name with [mappings](/docs/02-ext-dev/07-mappings.md):
 
 ```tsx
-const React = require("common_react");
+const React = require("react");
 const myElement = <span>Hi!</span>;
 ```

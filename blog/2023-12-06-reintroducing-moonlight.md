@@ -7,6 +7,8 @@ image: /static/img/wordmark.png
 
 A few days ago, we released a new Discord client mod called [moonlight](/). moonlight is the end result of our ideas and experiences from Discord client modding, influenced by several years of working on other client modding projects. We invite developers to try out moonlight and report feedback on what we can improve.
 
+<!-- truncate -->
+
 ## Yet another Discord mod
 
 Tens if not hundreds of Discord desktop client mods have come and gone, so why make another? Simple; the freedom to innovate and experiment. With moonlight, we're free to do what we want and experiment with the ideas that we've had for years without any limitations. Creating moonlight has offered a fresh slate to build our own systems and play with what we like most, and allows us to try out new things with zero consequence.

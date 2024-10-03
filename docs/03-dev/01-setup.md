@@ -35,3 +35,7 @@ moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces). The proj
 ## Build system
 
 moonlight uses [esbuild](https://esbuild.github.io) as its build system (`build.mjs`). This script is responsible for outputting `injector`, `node-preload`, and `web-preload` into `dist`, along with all core extensions.
+
+## Other dependencies
+
+moonlight uses some other packages that are not in the monorepo, like [LunAST](https://github.com/moonlight-mod/lunast), [moonmap](https://github.com/moonlight-mod/moonmap), and [mappings](https://github.com/moonlight-mod/mappings). When testing local forks, try [pnpm link](https://pnpm.io/cli/link).

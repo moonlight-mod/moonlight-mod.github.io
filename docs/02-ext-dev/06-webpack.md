@@ -92,7 +92,7 @@ export const patches: Patch[] = [
 
 Similar to patching, extensions can also insert their own Webpack modules. These can be required like normal modules (which means they can be used inside of patches and other extensions).
 
-To create a Webpack module, export them from your extension's web entrypoint:
+To create a Webpack module, export them from your extension's web entrypoint, or [use an ESM Webpack module](/docs/02-ext-dev/04-esm-webpack-modules.md):
 
 ```ts
 export const webpackModules: Record<string, ExtensionWebpackModule> = {
@@ -124,4 +124,4 @@ export const webpackModules: Record<string, ExtensionWebpackModule> = {
 };
 ```
 
-You can then require this module using the format `${ext.id}_${webpackModule.name}` (e.g. the `react` Webpack module in the `common` extension has the ID `common_react`).
+You can then require this module using the format `${ext.id}_${webpackModule.name}` (e.g. the `stores` Webpack module in the `common` extension has the ID `common_stores`).

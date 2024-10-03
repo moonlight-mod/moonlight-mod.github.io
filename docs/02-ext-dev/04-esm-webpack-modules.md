@@ -24,3 +24,5 @@ declare module "@moonlight-mod/wp/sampleExtension_someLibrary" {
 ## CJS and ESM interop
 
 When using `export default` or `export something` in a ESM Webpack module like this, you will need to do `require("ext_id").default` or `require("ext_id").something` to access it. You can also use `module.exports`, but there may be issues that arise from it.
+
+Importing the default export of a mapped Webpack module may have issues.

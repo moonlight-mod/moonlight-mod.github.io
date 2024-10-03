@@ -11,16 +11,6 @@ These aren't extensions, but rather options in the moonlight config:
 - `loggerLevel`: The level to log at. If not set, defaults to `info`.
 - `patchAll`: Set to `true` to wrap every Webpack module in a function. This slows down client starts significantly, but can make debugging easier.
 
-## Common
-
-Common exposes multiple Webpack modules useful for development:
-
-- `common_react`: Discord's version of React (required to be in scope for JSX)
-- `common_flux`: Discord's version of Flux
-- `common_stores`: A proxy around Discord's Flux stores
-  - Access stores as properties, e.g. `require("common_stores").UserStore`
-- `common_http`: A small HTTP client
-
 ## Disable Sentry & No Track
 
 Both of these extensions do not provide any utilities, but prevent your client from sending metrics to Discord, which lessens the risk of moonlight related errors being reported. These should always be enabled. These are not magical tools to prevent account suspension, and you should always consider safety when writing an extension (especially one that makes requests automatically).
