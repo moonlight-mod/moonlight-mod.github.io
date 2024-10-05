@@ -1,9 +1,10 @@
 ---
 description: Yet another Discord mod
 ---
+import Wordmark from "../Wordmark.js";
 
 <h3 align="center">
-  <img src="./img/wordmark.png" alt="moonlight" />
+  <Wordmark />
 
   <a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
   {" "}- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
