@@ -1,10 +1,17 @@
 ---
 description: Yet another Discord mod
 ---
-import Wordmark from "../Wordmark.js";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
 
 <h3 align="center">
-  <Wordmark />
+  <ThemedImage
+    alt="moonlight"
+    sources={{
+      light: useBaseUrl("/img/wordmark.png"),
+      dark: useBaseUrl("/img/wordmark-light.png")
+    }}
+  />
 
   <a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
   {" "}- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
