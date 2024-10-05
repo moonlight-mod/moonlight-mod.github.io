@@ -36,3 +36,14 @@ To use it, [download](https://github.com/moonlight-mod/moonlight-installer/relea
 Adjust the `/path/to/moonlight/dist` to point to the `dist` folder in your locally cloned moonlight install.
 
 After first launch, moonlight will create a config directory in the Electron `appData` path named `moonlight-mod`. Each Discord branch has its own `.json` file for configuration.
+
+## Browser
+
+moonlight optionally runs in the browser. To use it, [build moonlight](/docs/dev/setup), and then build the browser extension:
+
+- Manifest v3 (Chrome): `pnpm run browser`
+- Manifest v2 (Firefox): `pnpm run browser-mv2`
+
+The output extension will be at `dist/browser`. Chrome users can check "Developer mode" and click "Load unpacked" in `chrome://extensions`, and Firefox users can click "Load Temporary Add-on" in `about:debugging`.
+
+Browser support is experimental and may be unreliable. Developing extensions or using custom repositories is not supported with the browser extension.
