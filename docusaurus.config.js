@@ -46,7 +46,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: "img/wordmark.png",
+      image: "img/logo.png",
       navbar: {
         title: "moonlight",
         logo: {

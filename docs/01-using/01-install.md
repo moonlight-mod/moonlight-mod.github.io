@@ -1,12 +1,10 @@
 # Installation
 
-There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. Installs via the automatic launchers are heavily recommended for users. **moonlight is currently experimental and is not suggested for end users. If you are not a developer, please refrain from installing moonlight at this time.**
+There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the installer.
 
 ## moonlight-installer
 
-The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you, and is the recommended way of installing.
-
-To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine.
+The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine.
 
 ## Manual installations
 
