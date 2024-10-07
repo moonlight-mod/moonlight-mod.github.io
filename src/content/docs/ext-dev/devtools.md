@@ -1,5 +1,6 @@
 ---
 title: Using DevTools
+description: The Chrome DevTools is a panel/window that offers several utilities for web development. Normally, it is intended for the creators of the target application, but it also serves as an excellent tool for client modders.
 sidebar:
   order: 8
 ---

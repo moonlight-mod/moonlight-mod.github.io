@@ -1,5 +1,6 @@
 ---
 title: ESM Webpack modules
+description: Instead of embedding a Webpack module as a function in your extension, you can create a separate file that gets loaded by moonlight.
 sidebar:
   order: 4
 ---

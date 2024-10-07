@@ -1,5 +1,6 @@
 ---
 title: Submitting to the official repository
+description: While moonlight allows you to use custom repositories from URLs, it comes with an official repository built in.
 sidebar:
   order: 3
 ---

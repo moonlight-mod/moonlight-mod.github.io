@@ -1,5 +1,6 @@
 ---
 title: Webpack modules & patching
+description: Information about the core of moonlight's mod system
 sidebar:
   order: 6
 ---

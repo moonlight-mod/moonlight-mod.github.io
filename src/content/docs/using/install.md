@@ -1,14 +1,24 @@
 ---
 title: Installation
+description: How to install, build, and use moonlight
 sidebar:
   order: 1
 ---
 
 There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the installer.
 
-## moonlight-installer
+## moonlight installer
 
 The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine.
+
+## moonlight-cli
+
+A [command line installer](https://github.com/moonlight-mod/moonlight-installer/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight:
+
+```shell
+moonlight-cli install stable
+moonlight-cli patch /path/to/discord/executable
+```
 
 ## Manual installations
 
@@ -49,3 +59,7 @@ moonlight optionally runs in the browser. To use it, [build moonlight](/dev/setu
 The output extension will be at `dist/browser`. Chrome users can check "Developer mode" and click "Load unpacked" in `chrome://extensions`, and Firefox users can click "Load Temporary Add-on" in `about:debugging`.
 
 Browser support is experimental and may be unreliable. Developing extensions or using custom repositories is not supported with the browser extension.
+
+## rocketship
+
+Linux users can install a custom Discord build with [rocketship](https://github.com/moonlight-mod/rocketship) and then install moonlight into it. Enable the rocketship extension after installation.
