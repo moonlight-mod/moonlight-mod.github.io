@@ -1,24 +1,26 @@
 ---
+title: moonlight
+template: splash
 description: Yet another Discord mod
+hero:
+  title: ""
+  image:
+    dark: ../../img/wordmark-light.png
+    light: ../../img/wordmark.png
+    alt: moonlight
+  actions:
+    - text: Docs
+      link: /using/install
+      icon: right-arrow
+    - text: Discord server
+      link: https://discord.gg/FdZBTFCP6F
+      variant: minimal
+      icon: external
+    - text: GitHub
+      link: https://github.com/moonlight-mod/moonlight
+      variant: minimal
+      icon: external
 ---
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import ThemedImage from "@theme/ThemedImage";
-
-<h3 align="center">
-  <ThemedImage
-    alt="moonlight"
-    sources={{
-      light: useBaseUrl("/img/wordmark.png"),
-      dark: useBaseUrl("/img/wordmark-light.png")
-    }}
-  />
-
-  <a href="https://discord.gg/FdZBTFCP6F">Discord server</a>
-  {" "}- <a href="https://github.com/moonlight-mod/moonlight">GitHub</a>
-  {" "}- <a href="https://moonlight-mod.github.io/docs/using/install">Docs</a>
-
-  <hr />
-</h3>
 
 **moonlight** is yet another Discord client mod, focused on providing a decent user and developer experience.
 

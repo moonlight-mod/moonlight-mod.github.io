@@ -1,10 +1,11 @@
 ---
 title: moonlight API v2, mappings, and more
 description: New libraries and utilities for a new version of moonlight
+date: 2024-10-03
 authors: [notnite, cynosphere, adryd]
 ---
 
-Been a while, eh? The last post we wrote for moonlight was [when we first introduced it](/blog/2023-12-06-reintroducing-moonlight.md). Sounds like it's time to change that!
+Been a while, eh? The last post we wrote for moonlight was [when we first introduced it](/blog/reintroducing-moonlight). Sounds like it's time to change that!
 
 <!-- truncate -->
 
@@ -86,7 +87,7 @@ You can then just `spacepack.require("discord/utils/HTTPUtils").HTTP`, and it ju
 
 ## mappings: client mod agnostic Discord mappings
 
-[mappings](https://github.com/moonlight-mod/mappings) combines moonmap and LunAST into one project to map out the Discord client. This is an idea that was tested in [HH3](/blog/2023/12/06/reintroducing-moonlight#whats-with-hh3), and we believe that it's stable by now.
+[mappings](https://github.com/moonlight-mod/mappings) combines moonmap and LunAST into one project to map out the Discord client. This is an idea that was tested in [HH3](/blog/reintroducing-moonlight#whats-with-hh3), and we believe that it's stable by now.
 
 The biggest feature about the mappings is that they aren't locked into the moonlight patcher system. Any client mod that can implement moonmap and LunAST into their patching system can use the mappings repository with no extra effort. We hope this can save some duplicated effort across the client modding community.
 
@@ -109,7 +110,7 @@ All extensions you are currently using (minus the extensions built into moonligh
 
 ### As an extension developer
 
-Your extensions will need to be updated. See [this new page in the documentation](/docs/ext-dev/migrating-api-levels).
+Your extensions will need to be updated. See [this new page in the documentation](/ext-dev/migrating-api-levels).
 
 ### As another client mod developer
 
@@ -117,7 +118,7 @@ All of the libraries mentioned above can be used by your own code now. Have fun!
 
 ## The future of moonlight
 
-moonlight, like the [PlayStation 5](https://en.wikipedia.org/wiki/Category:PlayStation_5-only_games), is pointless when there's nothing to install onto it. As with [last time](/blog/2023-12-06-reintroducing-moonlight.md#whats-next-for-moonlight), we encourage developers to try making extensions. Let us know if there's anything we can improve, and submit your extension to [the official repository][official-repo] if you'd like.
+moonlight, like the [PlayStation 5](https://en.wikipedia.org/wiki/Category:PlayStation_5-only_games), is pointless when there's nothing to install onto it. As with [last time](/blog/reintroducing-moonlight#whats-next-for-moonlight), we encourage developers to try making extensions. Let us know if there's anything we can improve, and submit your extension to [the official repository][official-repo] if you'd like.
 
 We don't consider this a "moonlight 2.0" as much as "moonlight API version 2". There's no groundbreaking rewrite going on here, just some new libraries to play with.
 

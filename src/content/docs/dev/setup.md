@@ -1,10 +1,10 @@
 ---
+title: Project setup
 description: Information on moonlight's project structure and build system
+sidebar:
+  order: 1
 ---
 
-# Project setup
-
-## Building from source
 
 You will need [pnpm](https://pnpm.io), as moonlight uses it for dependency and workspace management.
 

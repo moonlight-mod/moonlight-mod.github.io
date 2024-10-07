@@ -1,0 +1,87 @@
+---
+import type { Props } from "@astrojs/starlight/props";
+import { LinkButton } from "@astrojs/starlight/components";
+import { Image } from "astro:assets";
+
+const hero = Astro.props.entry.data.hero;
+const actions = hero?.actions || [];
+const image = hero?.image;
+
+let darkImage: ImageMetadata | undefined;
+let lightImage: ImageMetadata | undefined;
+if (image) {
+  if ("file" in image) {
+    darkImage = image.file;
+  } else if ("dark" in image) {
+    darkImage = image.dark;
+    lightImage = image.light;
+  }
+}
+
+const imageAttrs = {
+  loading: "eager" as const,
+  decoding: "async" as const,
+  alt: image?.alt || ""
+};
+---
+
+<div class="hero">
+  <div class="heroImageWrapper">
+    {
+      darkImage && (
+        <Image
+          src={darkImage}
+          {...imageAttrs}
+          class:list={{ "light:sl-hidden": Boolean(lightImage) }}
+        />
+      )
+    }
+    {
+      lightImage && (
+        <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />
+      )
+    }
+  </div>
+
+  {
+    actions.length > 0 && (
+      <div class="sl-flex actions">
+        {actions.map(
+          ({
+            attrs: { class: className, ...attrs } = {},
+            icon,
+            link: href,
+            text,
+            variant
+          }) => (
+            <LinkButton
+              {href}
+              {variant}
+              icon={icon?.name}
+              class:list={[className]}
+              {...attrs}
+            >
+              {text}
+              {icon?.html && <Fragment set:html={icon.html} />}
+            </LinkButton>
+          )
+        )}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .heroImageWrapper {
+    width: min(100%, 50rem);
+    justify-content: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .actions {
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

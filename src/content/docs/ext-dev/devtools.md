@@ -1,4 +1,8 @@
-# Using DevTools
+---
+title: Using DevTools
+sidebar:
+  order: 8
+---
 
 The Chrome DevTools is a panel/window that offers several utilities for web development. Normally, it is intended for the creators of the target application, but it also serves as an excellent tool for client modders.
 
@@ -12,7 +16,7 @@ In some branches of Discord, the following is required in the `settings.json` fi
 
 ## Reading module sources
 
-See the [helpful extensions](/docs/ext-dev/helpful-exts) page first for `patchAll` and how to use Spacepack.
+See the [helpful extensions](/ext-dev/helpful-exts) page first for `patchAll` and how to use Spacepack.
 
 To see the source of a module, print the function with `spacepack.inspect`:
 

@@ -1,4 +1,8 @@
-# Installation
+---
+title: Installation
+sidebar:
+  order: 1
+---
 
 There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the installer.
 
@@ -8,7 +12,7 @@ The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) 
 
 ## Manual installations
 
-- [Build moonlight](/docs/dev/setup).
+- [Build moonlight](/dev/setup).
 - Go to your Discord install's `resources` folder.
 - Rename the `app.asar` to `_app.asar`, and create an `app` folder. Discord will load the folder instead of the `.asar` now that it has been renamed.
 - Create the following files:
@@ -37,7 +41,7 @@ After first launch, moonlight will create a config directory in the Electron `ap
 
 ## Browser
 
-moonlight optionally runs in the browser. To use it, [build moonlight](/docs/dev/setup), and then build the browser extension:
+moonlight optionally runs in the browser. To use it, [build moonlight](/dev/setup), and then build the browser extension:
 
 - Manifest v3 (Chrome): `pnpm run browser`
 - Manifest v2 (Firefox): `pnpm run browser-mv2`

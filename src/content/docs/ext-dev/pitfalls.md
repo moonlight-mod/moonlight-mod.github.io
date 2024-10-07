@@ -1,4 +1,8 @@
-# Pitfalls
+---
+title: Pitfalls
+sidebar:
+  order: 5
+---
 
 There are some important pitfalls you may encounter when writing moonlight extensions.
 
@@ -70,7 +74,7 @@ const myElement = <span>Hi!</span>;
 const myElement = React.createElement("span", null, "Hi!");
 ```
 
-Because of this, you need to make sure the React variable is in scope. `react` is automatically populated as a Webpack module name with [mappings](/docs/02-ext-dev/07-mappings.md):
+Because of this, you need to make sure the React variable is in scope. `react` is automatically populated as a Webpack module name with [mappings](/ext-dev/mappings):
 
 ```tsx
 const React = require("react");

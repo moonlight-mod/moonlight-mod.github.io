@@ -1,4 +1,8 @@
-# Mappings
+---
+title: Mappings
+sidebar:
+  order: 7
+---
 
 moonlight uses [mappings](https://github.com/moonlight-mod/mappings) that automatically rename Webpack modules for you.
 

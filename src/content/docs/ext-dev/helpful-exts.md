@@ -1,4 +1,8 @@
-# Helpful extensions
+---
+title: Helpful extensions
+sidebar:
+  order: 2
+---
 
 This is a list of helpful extensions that can be used to aid extension development.
 

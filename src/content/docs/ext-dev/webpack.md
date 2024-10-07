@@ -1,4 +1,8 @@
-# Webpack modules & patching
+---
+title: Webpack modules & patching
+sidebar:
+  order: 6
+---
 
 [Webpack](https://webpack.js.org) is a library used by Discord to turn their codebase into a bundled JavaScript file. Code gets converted into Webpack "modules", which are individual functions that can require and load each other. You can think of them as individual files, each with their own code and exports, but converted into single functions inside of the client.
 
@@ -92,7 +96,7 @@ export const patches: Patch[] = [
 
 Similar to patching, extensions can also insert their own Webpack modules. These can be required like normal modules (which means they can be used inside of patches and other extensions).
 
-To create a Webpack module, export them from your extension's web entrypoint, or [use an ESM Webpack module](/docs/02-ext-dev/04-esm-webpack-modules.md):
+To create a Webpack module, export them from your extension's web entrypoint, or [use an ESM Webpack module](/ext-dev/esm-webpack-modules):
 
 ```ts
 export const webpackModules: Record<string, ExtensionWebpackModule> = {
