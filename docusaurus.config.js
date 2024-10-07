@@ -73,6 +73,8 @@ const config = {
         ]
       },
 
+      metadata: [{ name: "twitter:card", content: "summary" }],
+
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme
