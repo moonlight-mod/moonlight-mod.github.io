@@ -15,6 +15,20 @@ export const styles: string[] = [
 ];
 ```
 
+## Using another extension as a library
+
+```ts title="manifest.json"
+{
+  "dependencies": ["markdown"]
+}
+```
+
+```ts title="webpackModules/something.ts"
+import * as markdown from "@moonlight-mod/wp/markdown_markdown";
+
+markdown.addRule(/* ... */);
+```
+
 ## Using mappings
 
 In this case, the Flux dispatcher. Import types may be wrong in some scenarios (try `import * as Something` or `import { Something }` if you get errors, and let us know!).
@@ -53,7 +67,7 @@ export const webpackModules: Record<string, ExtensionWebpackModule> = {
 };
 ```
 
-```ts name="webpackModules/element.ts"
+```ts name="webpackModules/element.tsx"
 import React from "@moonlight-mod/wp/react";
 
 export default function MyElement() {

@@ -4,6 +4,7 @@ description: How to install, build, and use moonlight
 sidebar:
   order: 1
 ---
+import { FileTree } from "@astrojs/starlight/components";
 
 There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the installer.
 
@@ -13,9 +14,10 @@ The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) 
 
 ## moonlight-cli
 
-A [command line installer](https://github.com/moonlight-mod/moonlight-installer/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight:
+A [command line installer](https://github.com/moonlight-mod/moonlight-installer/tree/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight:
 
 ```shell
+cargo install --git https://github.com/moonlight-mod/moonlight-installer.git moonlight-cli
 moonlight-cli install stable
 moonlight-cli patch /path/to/discord/executable
 ```
@@ -25,27 +27,33 @@ moonlight-cli patch /path/to/discord/executable
 - [Build moonlight](/dev/setup).
 - Go to your Discord install's `resources` folder.
 - Rename the `app.asar` to `_app.asar`, and create an `app` folder. Discord will load the folder instead of the `.asar` now that it has been renamed.
-- Create the following files:
+- Create the following files in `resources/app`:
 
-> `resources/app/package.json`:
->
-> ```json
-> {
->   "name": "discord",
->   "main": "./injector.js",
->   "private": true
-> }
-> ```
->
-> `resources/app/injector.js`:
->
-> ```js
-> require("/path/to/moonlight/dist/injector").inject(
->   require("path").join(__dirname, "../_app.asar")
-> );
-> ```
+```json title="package.json"
+{
+  "name": "discord",
+  "main": "./injector.js",
+  "private": true
+}
+```
+
+```js title="injector.js"
+require("/path/to/moonlight/dist/injector").inject(
+  require("path").join(__dirname, "../_app.asar")
+);
+```
 
 Adjust the `/path/to/moonlight/dist` to point to the `dist` folder in your locally cloned moonlight install.
+
+You should have the following structure:
+
+<FileTree>
+- resources
+  - _app.asar
+  - app
+    - injector.js
+    - package.json
+</FileTree>
 
 After first launch, moonlight will create a config directory in the Electron `appData` path named `moonlight-mod`. Each Discord branch has its own `.json` file for configuration.
 
