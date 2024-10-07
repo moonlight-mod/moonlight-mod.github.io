@@ -72,11 +72,17 @@ const imageAttrs = {
 </div>
 
 <style>
-  .heroImageWrapper {
-    width: min(100%, 50rem);
+  .hero {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+  }
+
+  .heroImageWrapper img {
+    image-rendering: pixelated;
     width: 100%;
     height: auto;
+    justify-content: center;
   }
 
   .actions {
