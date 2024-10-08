@@ -79,3 +79,35 @@ Because of this, you need to make sure the React variable is in scope. `react` i
 const React = require("react");
 const myElement = <span>Hi!</span>;
 ```
+
+## Using the wrong moonlight global
+
+What moonlight global exists depends on the entrypoint:
+
+- Web: `moonlight`
+- Node: `moonlightNode`
+- Host: `moonlightHost`
+
+## Each Webpack module is an entrypoint
+
+Say you were writing a Webpack module that shared some state:
+
+```ts title="myWebpackModule.ts"
+export const someState = 1;
+```
+
+and you wanted to use it in another Webpack module. Do not directly import the Webpack module as a file:
+
+```ts title="otherWebpackModule.ts"
+import { someState } from "./myWebpackModule";
+```
+
+as it will make a copy of the module, duplicating your state and causing issues. Each Webpack module is treated as its own entrypoint, and all imports will be duplicated between them. Instead, import it through the `@moonlight-mod/wp` namespace or use `require`:
+
+```ts title="otherWebpackModule.ts"
+import { someState } from "@moonlight-mod/wp/extension_myWebpackModule";
+// or
+const { someState } = require("extension_myWebpackModule");
+```
+
+See [the page on ESM Webpack modules](/ext-dev/esm-webpack-modules) for how to type the import statement.
