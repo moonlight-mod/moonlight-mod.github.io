@@ -7,8 +7,6 @@ authors: [notnite, cynosphere, adryd]
 
 Been a while, eh? The last post we wrote for moonlight was [when we first introduced it](/blog/reintroducing-moonlight). Sounds like it's time to change that!
 
-<!-- truncate -->
-
 moonlight development was stalled for a while this year, particularly due to lack of motivation. Less people than expected tinkering with moonlight gave us less reason to update it, and so it fell behind with Discord updates, eventually breaking catastrophically for several months. Thanks to [redstonekasi](https://github.com/redstonekasi) for submitting pull requests for fixing a *lot* of things while none of us had the energy to.
 
 About a week ago, [Ari](https://github.com/adryd325) had the idea of making a centralized repository for Discord client mappings. This short conversation would lead to one of the greatest nerdsnipes in moonlight history.
