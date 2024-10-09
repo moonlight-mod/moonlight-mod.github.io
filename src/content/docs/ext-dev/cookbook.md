@@ -23,6 +23,19 @@ export const styles: string[] = [
 }
 ```
 
+```ts title="index.ts"
+export const webpackModules: Record<string, ExtensionWebpackModule> = {
+  something: {
+    dependencies: [
+      {
+        ext: "markdown",
+        id: "markdown"
+      }
+    ]
+  }
+};
+```
+
 ```ts title="webpackModules/something.ts"
 import * as markdown from "@moonlight-mod/wp/markdown_markdown";
 
@@ -55,7 +68,7 @@ Dispatcher.subscribe("MESSAGE_CREATE", (data) => {
 
 ## Custom React component
 
-```ts name="index.ts"
+```ts title="index.ts"
 export const webpackModules: Record<string, ExtensionWebpackModule> = {
   element: {
     dependencies: [
@@ -67,7 +80,7 @@ export const webpackModules: Record<string, ExtensionWebpackModule> = {
 };
 ```
 
-```ts name="webpackModules/element.tsx"
+```ts title="webpackModules/element.tsx"
 import React from "@moonlight-mod/wp/react";
 
 export default function MyElement() {
