@@ -111,3 +111,7 @@ const { someState } = require("extension_myWebpackModule");
 ```
 
 See [the page on ESM Webpack modules](/ext-dev/esm-webpack-modules) for how to type the import statement.
+
+## Manifests not updating with dev mode
+
+If you run `pnpm run dev` while making an extension, manifests will not be watched for changes until you restart the dev server.
