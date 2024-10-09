@@ -63,7 +63,23 @@ export default defineConfig({
       ],
       components: {
         Hero: "./src/components/Hero.astro"
-      }
+      },
+      head: [
+        {
+          tag: "meta",
+          attrs: {
+            property: "og:image",
+            content: "https://moonlight-mod.github.io/favicon.png"
+          }
+        },
+        {
+          tag: "meta",
+          attrs: {
+            name: "twitter:card",
+            content: "summary"
+          }
+        }
+      ]
     })
   ]
 });
