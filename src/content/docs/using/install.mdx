@@ -6,11 +6,13 @@ sidebar:
 ---
 import { FileTree } from "@astrojs/starlight/components";
 
-There are two ways to install moonlight: through an experimental GUI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the installer.
+There are several ways to install moonlight: through the GUI installer, the CLI installer, or manually building it yourself. If you do not plan to develop on the moonlight codebase itself, it is suggested to use the GUI installer.
 
 ## moonlight installer
 
 The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine.
+
+Keep the installer in the event that a Discord update breaks moonlight, so you can unpatch Discord or update moonlight.
 
 ## moonlight-cli
 
@@ -21,6 +23,8 @@ cargo install --git https://github.com/moonlight-mod/moonlight-installer.git moo
 moonlight-cli install stable
 moonlight-cli patch /path/to/discord/executable
 ```
+
+You can specify a custom moonlight `dist` directory with `moonlight-cli patch -m /path/to/moonlight/dist`.
 
 ## Manual installations
 
