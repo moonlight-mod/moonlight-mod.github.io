@@ -286,7 +286,12 @@
           "properties": {
             "options": {
               "oneOf": [
-                { "type": "string" },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 {
                   "type": "object",
                   "properties": {
