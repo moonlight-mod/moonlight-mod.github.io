@@ -4,7 +4,7 @@ date: 2024-10-10
 authors: [notnite, cynosphere, adryd]
 ---
 
-Right after releasing [moonlight API v2](/docs/blog/moonlight-api-v2) we knew we wanted to work on more moonlight stuff. What was originally planned as a "1.1.1" kept growing in size until it was large enough that we decided to upgrade to a "1.2.0". We ended up making **over 100 commits in one week!**
+Right after releasing [moonlight API v2](/blog/moonlight-api-v2) we knew we wanted to work on more moonlight stuff. What was originally planned as a "1.1.1" kept growing in size until it was large enough that we decided to upgrade to a "1.2.0". We ended up making **over 100 commits in one week!**
 
 With this release, the moonlight API version still stays at 2. Assuming your extension was up to date and functioning before, it should continue to be fine now.
 
