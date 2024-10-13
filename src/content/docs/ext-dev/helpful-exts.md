@@ -27,3 +27,7 @@ Spacepack allows you to find and inspect Webpack modules. The "Add to global sco
 - `findByCode`, `findByExports`: Returns an array of Webpack modules that has code/exports that match the arguments.
 - `findObjectFromKey`, `findObjectFromValue`, `findObjectFromKeyValuePair`, `findFunctionByStrings`: Search the exports of a Webpack module to find an object or function using the given arguments.
 - `modules`, `cache`: The Webpack modules and cache objects.
+
+## DevTools Extensions
+
+Allows you to load custom Chrome extensions into Discord, primarily for debugging. It is suggested to enable this and install [React DevTools](/ext-dev/devtools#react-devtools).
