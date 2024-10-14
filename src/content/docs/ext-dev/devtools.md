@@ -2,7 +2,7 @@
 title: Using DevTools
 description: The Chrome DevTools is a panel/window that offers several utilities for web development. Normally, it is intended for the creators of the target application, but it also serves as an excellent tool for client modders.
 sidebar:
-  order: 8
+  order: 9
 ---
 
 The Chrome DevTools is a panel/window that offers several utilities for web development. Normally, it is intended for the creators of the target application, but it also serves as an excellent tool for client modders.
@@ -33,6 +33,8 @@ You can chain `inspect` with `findByCode` (or an equivalent) when trying to find
 spacepack.inspect(spacepack.findByCode(/* finds */)[0].id)
 ```
 
+Also see [this page](/ext-dev/webpack#common-patterns) for common patterns to look out for.
+
 ## Using the Sources tab
 
 - Minimize the navigator by clicking "Hide navigator" on the top left. This introduces a severe amount of lag by having it open.
@@ -40,12 +42,6 @@ spacepack.inspect(spacepack.findByCode(/* finds */)[0].id)
   - Toggle on pretty print when reading and debugging code.
   - Toggle off pretty print when testing or writing patches.
 - When testing patches, use Find (Ctrl+F) and enable regex mode on the right side, and paste the find in without the surrounding slashes (`/`).
-
-## Common patterns
-
-- The pattern `n(/* some number */)` represents a require, and is another module ID inside of the argument. You can pass that module ID to `spacepack.inspect` to read the required module source.
-- `Z` and `ZP` usually correspond to `default` exports.
-- Mentions of `jsx` and `createElement` imply construction of React components.
 
 ## Using the debugger
 

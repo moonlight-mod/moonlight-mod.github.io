@@ -2,7 +2,7 @@
 title: Submitting to the official repository
 description: While moonlight allows you to use custom repositories from URLs, it comes with an official repository built in.
 sidebar:
-  order: 3
+  order: 2
 ---
 
 While moonlight allows you to use custom repositories from URLs, it comes with an [official repository][extensions] built in. While submitting to the official repository is not required, it is highly suggested.

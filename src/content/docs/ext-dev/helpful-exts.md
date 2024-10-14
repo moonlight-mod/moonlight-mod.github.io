@@ -2,7 +2,7 @@
 title: Helpful extensions
 description: This is a list of helpful extensions that can be used to aid extension development.
 sidebar:
-  order: 2
+  order: 4
 ---
 
 ## Config options
@@ -20,13 +20,7 @@ Both of these extensions do not provide any utilities, but prevent your client f
 
 ## Spacepack
 
-Spacepack allows you to find and inspect Webpack modules. The "Add to global scope" setting is suggested, so you can use Spacepack from within DevTools.
-
-- `require`: Standard Webpack require.
-- `inspect`: Fetch a Webpack module by its ID and return an isolated copy of it, which can be double-clicked in DevTools to inspect the source code.
-- `findByCode`, `findByExports`: Returns an array of Webpack modules that has code/exports that match the arguments.
-- `findObjectFromKey`, `findObjectFromValue`, `findObjectFromKeyValuePair`, `findFunctionByStrings`: Search the exports of a Webpack module to find an object or function using the given arguments.
-- `modules`, `cache`: The Webpack modules and cache objects.
+Spacepack allows you to find and inspect Webpack modules. The "Add to global scope" setting is suggested, so you can use Spacepack from within DevTools. See [here](/ext-dev/api#spacepack) for the API.
 
 ## DevTools Extensions
 

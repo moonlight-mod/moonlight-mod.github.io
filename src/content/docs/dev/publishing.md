@@ -3,10 +3,16 @@ title: Publishing a new release
 sidebar:
   order: 3
 ---
-import { Aside } from "@astrojs/starlight/components";
 
-<Aside>This page is mainly here for moonlight core developers who forget what they're doing. Normal users and contributors PRing do not have to do anything here.</Aside>
-<Aside type="caution">When publishing to npm, versions are constant. Exercise caution.</Aside>
+:::note
+This page is mainly here for moonlight core developers who forget what they're doing. Normal users and contributors PRing do not have to do anything here.
+:::
+
+:::caution
+Version bumps are not done until a publish is required. Make sure to version bump moonlight (and types, if necessary) before publishing.
+
+When publishing to npm, versions are constant. Exercise caution.
+:::
 
 ## Publishing moonlight
 

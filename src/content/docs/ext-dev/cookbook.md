@@ -2,20 +2,58 @@
 title: Cookbook
 description: Common patterns when writing extensions
 sidebar:
-  order: 10
+  order: 3
 ---
 
-## Exporting styles
+## Exporting from your extension
 
-```ts title="index.ts"
-export const styles: string[] = [
-  `.alert {
-    color: red;
-  }`
-];
+On the web target (`index.ts`), you can export patches, Webpack modules, and styles:
+
+```ts
+import type { ExtensionWebExports } from "@moonlight-mod/types";
+
+export const patches: ExtensionWebExports["patches"] = [];
+export const webpackModules: ExtensionWebExports["webpackModules"] = {};
+export const styles: ExtensionWebExports["styles"] = [];
 ```
 
+All exports are optional.
+
+## Extension entrypoints
+
+Extensions can load in three different environments:
+
+- In the browser (the "web" environment where Discord lives): `index.ts` & Webpack modules
+- On the Node.js side, where DiscordNative and such live: `node.ts`
+- On the host, with little sandboxing and access to Electron APIs: `host.ts`
+
+Most extensions only need to run code in the browser. Use the Node environment if you need access to system APIs, like the filesystem or creating processes. Use the Host environment if you need to use the Electron API.
+
+Remember that [you cannot directly import Node.js modules](/ext-dev/pitfalls#web-vs-nodejs), and should [share code with `moonlight.getNatives`](#sharing-code-between-nodejs-and-the-web).
+
+## Sharing code between Node.js and the web
+
+Make a `node.ts` file:
+
+```ts title="node.ts"
+module.exports.doSomething = () => {
+  console.log("Doing something...");
+};
+```
+
+Then, use it from your extension:
+
+```ts title="index.ts"
+const natives = moonlight.getNatives("your extension ID");
+// natives will be null if using moonlight in the browser
+natives?.doSomething();
+```
+
+Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios).
+
 ## Using another extension as a library
+
+Mark the extension as a dependency of your extension:
 
 ```ts title="manifest.json"
 {
@@ -23,9 +61,11 @@ export const styles: string[] = [
 }
 ```
 
+Mark the Webpack module as a dependency of your own Webpack module:
+
 ```ts title="index.ts"
-export const webpackModules: Record<string, ExtensionWebpackModule> = {
-  something: {
+export const webpackModules: ExtensionWebExports["webpackModules"] = {
+  someModule: {
     dependencies: [
       {
         ext: "markdown",
@@ -36,40 +76,22 @@ export const webpackModules: Record<string, ExtensionWebpackModule> = {
 };
 ```
 
-```ts title="webpackModules/something.ts"
+Then, import the Webpack module:
+
+```ts title="webpackModules/someModule.ts"
 import * as markdown from "@moonlight-mod/wp/markdown_markdown";
 
 markdown.addRule(/* ... */);
 ```
 
-## Using mappings
+Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios).
 
-In this case, the Flux dispatcher. Import types may be wrong in some scenarios (try `import * as Something` or `import { Something }` if you get errors, and let us know!).
+## Making a custom React component
 
-```ts title="index.ts"
-export const webpackModules: Record<string, ExtensionWebpackModule> = {
-  something: {
-    dependencies: [
-      {
-        id: "discord/Dispatcher"
-      }
-    ]
-  }
-};
-```
-
-```ts title="webpackModules/something.ts"
-import Dispatcher from "@moonlight-mod/wp/discord/Dispatcher";
-
-Dispatcher.subscribe("MESSAGE_CREATE", (data) => {
-  console.log(data);
-});
-```
-
-## Custom React component
+Mark React as a dependency of your own Webpack module:
 
 ```ts title="index.ts"
-export const webpackModules: Record<string, ExtensionWebpackModule> = {
+export const webpackModules: ExtensionWebExports["webpackModules"] = {
   element: {
     dependencies: [
       {
@@ -80,6 +102,8 @@ export const webpackModules: Record<string, ExtensionWebpackModule> = {
 };
 ```
 
+Then, import React from [mappings](/ext-dev/mappings):
+
 ```ts title="webpackModules/element.tsx"
 import React from "@moonlight-mod/wp/react";
 
@@ -87,3 +111,14 @@ export default function MyElement() {
   return <span>Hello, world!</span>;
 }
 ```
+
+React [must be imported when using JSX](/ext-dev/pitfalls/#using-jsx).
+
+## Using Spacepack to find code dynamically
+
+```ts
+import spacepack from "@moonlight-mod/wp/spacepack_spacepack";
+const { something } = spacepack.findByCode(...)[0].exports;
+```
+
+Remember to add your find to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion) and [declare Spacepack as a dependency](#using-another-extension-as-a-library).

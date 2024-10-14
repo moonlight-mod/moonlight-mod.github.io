@@ -2,65 +2,33 @@
 title: Pitfalls
 description: There are some important pitfalls you may encounter when writing moonlight extensions.
 sidebar:
-  order: 5
+  order: 8
 ---
 
 ## Web vs Node.js
 
-Because of the Electron process model, extensions have two entrypoints: one on the web side (where the actual Discord app runs) and one on the Node.js side (where DiscordNative and such live).
-
-Native Node.js modules *can* be used in an extension, but they cannot be imported from the web side. Instead, write a wrapper around them in your Node.js entrypoint, and call them from the web side:
-
-```ts title="node.ts"
-module.exports.doSomething = () => {
-  console.log("Doing something...");
-};
-```
-
-```ts title="index.ts"
-const natives = moonlight.getNatives("your extension ID");
-natives.doSomething();
-```
+Node.js code cannot be imported directly from the web side. You must use `moonlight.getNatives`. See [the cookbook](/ext-dev/cookbook/#sharing-code-between-nodejs-and-the-web) for how to access Node.js exports.
 
 ## Webpack require is not Node.js require
 
-The `require` function used in Webpack modules and patches is not the same as the function in Node.js. Instead, it lets you require other Webpack modules.
+The `require` function used in Webpack modules and patches is not the same as the function in Node.js. Instead, it lets you require other Webpack modules by their IDs.
 
-If you have a Webpack module you want to load, you can `require` it by its ID. Extension Webpack modules take the form of `${ext.id}_${webpackModule.name}` (e.g. `spacepack_spacepack` or `common_react`).
+If you have a Webpack module you want to load, [you can require it by its ID](/ext-dev/webpack/#importing-other-webpack-modules).
+
+## The web entrypoint is not a Webpack module
+
+You cannot use Webpack modules inside of `index.ts`, because it is loaded before Webpack is initialized. Instead, [create your own Webpack module](/ext-dev/webpack/#webpack-module-insertion) and use that.
+
+## Webpack modules only load when required
+
+By default, Webpack modules will not load unless they are required by another module or the `entrypoint` flag is set. If you need a module to run as soon as possible, [set the entrypoint flag](/ext-dev/webpack/#webpack-module-insertion).
 
 ## Spacepack findByCode matching itself
 
-When using the `findByCode` function in Spacepack while inside of a Webpack module, you can sometimes accidentally match yourself. This can be solved in two ways.
-
-The first option is to bring it out of the Webpack module source, but still in code:
+When using the `findByCode` function in Spacepack while inside of a Webpack module, you can sometimes accidentally match yourself. It is suggested to split a string in half and concatenante it, such that the string is fragmented in source but will evaluate to the same string:
 
 ```ts
-const findReact = [
-  "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED",
-  /\.?version(?:=|:)/,
-  /\.?createElement(?:=|:)/
-];
-
-export const webpackModules: Record<string, ExtensionWebpackModule> = {
-  myWebpackModule: {
-    dependencies: [{ ext: "spacepack", id: "spacepack" }],
-    run: (module, exports, require) => {
-      const spacepack = require("spacepack_spacepack");
-      const React = spacepack.findByCode(...findReact)[0].exports;
-    }
-  }
-};
-```
-
-The second option is to split a string in half and concatenante it, such that the string is fragmented in source but will evaluate to the same string:
-
-```ts
-const spacepack = require("spacepack_spacepack");
-const React = spacepack.findByCode([
-  "__SECRET_INTERNALS_DO_NOT" + "_USE_OR_YOU_WILL_BE_FIRED",
-  /\.?version(?:=|:)/,
-  /\.?createElement(?:=|:)/
-])[0].exports;
+const { something } = spacepack.findByCode("__SECRET_INTERNALS_DO_NOT" + "_USE_OR_YOU_WILL_BE_FIRED")[0].exports;
 ```
 
 ## Using JSX
@@ -76,42 +44,46 @@ const myElement = React.createElement("span", null, "Hi!");
 Because of this, you need to make sure the React variable is in scope. `react` is automatically populated as a Webpack module name with [mappings](/ext-dev/mappings):
 
 ```tsx
-const React = require("react");
+import React from "@moonlight-mod/wp/react";
 const myElement = <span>Hi!</span>;
 ```
 
+Remember to add React to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion).
+
 ## Using the wrong moonlight global
 
-What moonlight global exists depends on the entrypoint:
-
-- Web: `moonlight`
-- Node: `moonlightNode`
-- Host: `moonlightHost`
+What moonlight global exists depends on the entrypoint. See [the API documentation](/ext-dev/api) for more details.
 
 ## Each Webpack module is an entrypoint
 
 Say you were writing a Webpack module that shared some state:
 
-```ts title="myWebpackModule.ts"
+```ts title="someModule.ts"
 export const someState = 1;
 ```
 
 and you wanted to use it in another Webpack module. Do not directly import the Webpack module as a file:
 
-```ts title="otherWebpackModule.ts"
-import { someState } from "./myWebpackModule";
+```ts title="someOtherModule.ts"
+import { someState } from "./someModule";
 ```
 
-as it will make a copy of the module, duplicating your state and causing issues. Each Webpack module is treated as its own entrypoint, and all imports will be duplicated between them. Instead, import it through the `@moonlight-mod/wp` namespace or use `require`:
+as it will make a copy of the module, duplicating your state and causing issues. Each Webpack module is treated as its own entrypoint, and all imports will be duplicated between them. Instead, require it at runtime:
 
 ```ts title="otherWebpackModule.ts"
-import { someState } from "@moonlight-mod/wp/extension_myWebpackModule";
+import { someState } from "@moonlight-mod/wp/yourExtension_someModule";
 // or
-const { someState } = require("extension_myWebpackModule");
+const { someState } = require("yourExtension_someModule");
 ```
 
-See [the page on ESM Webpack modules](/ext-dev/esm-webpack-modules) for how to type the import statement.
+Remember to [type your module](/ext-dev/webpack/#importing-other-webpack-modules) when using import statements.
 
-## Manifests not updating with dev mode
+## Restarting dev mode is required in some scenarios
 
-If you run `pnpm run dev` while making an extension, manifests will not be watched for changes until you restart the dev server.
+You must restart the `pnpm run dev` command if you make changes to certain files:
+
+- Adding a new extension
+- Editing an extension manifest
+- Adding/removing a [Webpack module](/ext-dev/webpack#webpack-module-insertion) or [entrypoint](/ext-dev/cookbook#extension-entrypoints)
+
+If you delete anything, it is suggested to run `pnpm run clean` so that they don't stick around in the `dist` folder.

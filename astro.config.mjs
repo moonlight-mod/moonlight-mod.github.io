@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightBlog from "starlight-blog";
+import starlightLinksValidator from "starlight-links-validator";
 
 // https://astro.build/config
 export default defineConfig({
@@ -29,7 +30,8 @@ export default defineConfig({
               picture: "https://github.com/adryd325.png"
             }
           }
-        })
+        }),
+        starlightLinksValidator()
       ],
 
       title: "moonlight",
