@@ -121,7 +121,17 @@ Do not add the directory with your code. moonlight will only be able to load the
 
 After restarting your client, the extension will load.
 
-When your extension is ready, you can [distribute the extension on a custom repository](#publishing-to-github-pages) or [submit to the official repository](/ext-dev/official-repository).
+## What's next?
+
+Congrats on making it this far! There's a lot more to learn about how moonlight works:
+
+- [Read about Webpack modules](/ext-dev/webpack), and learn how to write your own patches & make your own Webpack modules.
+- [Read the cookbook](/ext-dev/cookbook) for common patterns you may want to use.
+- [Set up DevTools](/ext-dev/devtools) to make reverse engineering Discord easier.
+- [Read common pitfalls](/ext-dev/pitfalls) so you know to avoid them.
+- When your extension is ready, [submit to the official repository](/ext-dev/official-repository) or [distribute the extension on a custom repository](#publishing-to-github-pages).
+
+If you need any help, don't be afraid to [ask in our Discord server](https://discord.gg/FdZBTFCP6F).
 
 ## Publishing to GitHub Pages
 

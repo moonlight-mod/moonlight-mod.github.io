@@ -95,6 +95,14 @@ export const patches: ExtensionWebExports["patches"] = [
 ];
 ```
 
+### Writing good patches
+
+It is suggested to follow some guidelines when writing patches:
+
+- Never hardcode minified variable names. Use `.` (or `.{1,2}` for longer names), so the patch still functions when the names change.
+- Use capture groups (e.g. `(.)`) to use previous variable names and snippets of code in your patches.
+- Keep logic inside of the patch to a minimum, and instead use `require` to [load your own Webpack module](#webpack-module-insertion).
+
 ## Webpack module insertion
 
 Similar to patching, extensions can also insert their own Webpack modules. These can be required like normal modules (which means they can be used inside of patches and other extensions). Extension Webpack modules take the form of `${ext.id}_${webpackModule.name}` (e.g. the `stores` Webpack module in the `common` extension has the ID `common_stores`).

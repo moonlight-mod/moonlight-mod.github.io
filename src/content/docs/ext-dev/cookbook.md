@@ -104,7 +104,7 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
 
 Then, import React from [mappings](/ext-dev/mappings):
 
-```ts title="webpackModules/element.tsx"
+```tsx title="webpackModules/element.tsx"
 import React from "@moonlight-mod/wp/react";
 
 export default function MyElement() {
