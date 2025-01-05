@@ -28,4 +28,13 @@ Then, create a pull request to [the official repository][extensions], adding a m
 
 `repository` must be a valid HTTPS Git URL. `commit` must be a valid commit in that repository. `scripts` is an array of pnpm scripts to build your project - for repositories using the sample extension, this will be `build` and `repo`. `artifact` is the location of the output file - for repositories using the sample extension, this will be `repo/<extension id>.asar`.
 
+## Adoption rules
+
+To prevent extensions from going unmaintained on the official repository, an adoption policy is in place for other developers to take over ownership of an extension. You can adopt an extension in one of the following scenarios:
+
+- You have written consent from a developer to adopt it
+- The extension has been outdated for over 3 months, and the developer did not respond after contact after 7 days
+
+An extension is defined as "outdated" when its features do not work, the extension crashes the client, or it has not been updated for the latest [API level](/ext-dev/migrating-api-levels/). We encourage developers to reach out for permission in a public space, like GitHub issues or in the moonlight Discord server, so that the response can be verified.
+
 [extensions]: <https://github.com/moonlight-mod/extensions>
