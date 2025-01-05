@@ -38,3 +38,16 @@ To prevent extensions from going unmaintained on the official repository, an ado
 An extension is defined as "outdated" when its features do not work, the extension crashes the client, or it has not been updated for the latest [API level](/ext-dev/migrating-api-levels/). We encourage developers to reach out for permission in a public space, like GitHub issues or in the moonlight Discord server, so that the response can be verified.
 
 [extensions]: <https://github.com/moonlight-mod/extensions>
+
+## Repository rules
+
+Extensions that violate the following rules cannot be submitted to the official repository:
+
+- No automation ("selfbotting"). Interactions to the Discord API cannot be made without user interaction. Interactions with the Discord API must be possible by a human.
+  - Examples: animated custom statuses, rainbow roles, scheduled messages, automatic message responses (like a bot would to a command), mass deleting messages
+- Respect the privacy of other users. No logging of other users' actions or long-term scraping of the Discord API.
+  - Examples: message loggers/"anti delete", message archival, read states via "hidden pixel" tracking
+- Respect the privacy of the user. Interactions with third party services must be clearly denoted inside of the plugin tagline or description.
+  - Examples: HTTP APIs
+
+If you're unsure if your extension can be submitted or not, feel free to ask!
