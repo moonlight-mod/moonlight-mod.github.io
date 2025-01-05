@@ -20,7 +20,7 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
 
 - Checkout the `main` branch.
 - Merge `develop` into `main`.
-- Update the version in `package.json` and write `CHANGELOG.md`.
+- Update the version (in `package.json` and the browser manifests) and write `CHANGELOG.md`.
   - Do not append to the changelog - remake it.
 - If any types changes were made in this release, [publish the types](#publishing-types).
 - Commit and push to `main`.
