@@ -122,3 +122,28 @@ const { something } = spacepack.findByCode(...)[0].exports;
 ```
 
 Remember to add your find to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion) and [declare Spacepack as a dependency](#using-another-extension-as-a-library).
+
+## Interacting with Flux events
+
+```ts
+import Dispatcher from "@moonlight-mod/wp/discord/Dispatcher";
+
+// Listen for MESSAGE_CREATE events
+Dispatcher.subscribe("MESSAGE_CREATE", (event: any) => {
+  console.log(event);
+});
+
+// Block all events (don't actually do this)
+Dispatcher.addInterceptor((event) => {
+  console.log(event.type);
+  return true;
+});
+```
+
+## Interacting with Flux stores
+
+```ts
+import { UserStore } from "@moonlight-mod/wp/common_stores";
+
+console.log(UserStore.getCurrentUser());
+```
