@@ -59,7 +59,13 @@ You should have the following structure:
     - package.json
 </FileTree>
 
-After first launch, moonlight will create a config directory in the Electron `appData` path named `moonlight-mod`. Each Discord branch has its own `.json` file for configuration.
+After first launch, moonlight will create a config directory in the Electron `appData` path named `moonlight-mod`:
+
+- Windows: `%AppData%/moonlight-mod`
+- macOS: `~/Library/Application Support/moonlight-mod`
+- Linux: `~/.config/moonlight-mod`
+
+Each Discord branch has its own `.json` file for configuration.
 
 ## Browser
 
