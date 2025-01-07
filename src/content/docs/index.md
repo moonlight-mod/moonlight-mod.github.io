@@ -22,6 +22,9 @@ hero:
       icon: external
 ---
 
+<img class="light:sl-hidden" src="/moonbase.png" alt="A screenshot of Moonbase, the moonlight UI" />
+<img class="dark:sl-hidden" src="/moonbase-light.png" alt="A screenshot of Moonbase, the moonlight UI" />
+
 **moonlight** is yet another Discord client mod, focused on providing a decent user and developer experience.
 
 moonlight is heavily inspired by hh3 (a private client mod) and the projects before it that it is inspired by, namely EndPwn. All core code is original or used with permission from their respective authors where not copyleft.
