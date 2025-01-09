@@ -9,17 +9,20 @@ hero:
     light: ../../img/wordmark.png
     alt: moonlight
   actions:
-    - text: Docs
+    - text: Install
       link: /using/install
-      icon: right-arrow
+      icon: download
+    - text: Docs
+      link: /ext-dev/getting-started
+      icon: open-book
     - text: Discord server
       link: https://discord.gg/FdZBTFCP6F
-      variant: minimal
-      icon: external
+      variant: secondary
+      icon: discord
     - text: GitHub
       link: https://github.com/moonlight-mod/moonlight
-      variant: minimal
-      icon: external
+      variant: secondary
+      icon: github
 ---
 
 <img class="light:sl-hidden" src="/moonbase.png" alt="A screenshot of Moonbase, the moonlight UI" />
@@ -29,6 +32,6 @@ hero:
 
 moonlight is heavily inspired by hh3 (a private client mod) and the projects before it that it is inspired by, namely EndPwn. All core code is original or used with permission from their respective authors where not copyleft.
 
-**_This is an experimental passion project._** Anything and everything is subject to change, but it is stable enough for developers to experiment with.
+**_This is an experimental passion project._** Anything and everything is subject to change, but it is stable enough for tinkerers and developers to experiment with.
 
 moonlight is licensed under the [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.html) (`LGPL-3.0-or-later`).
