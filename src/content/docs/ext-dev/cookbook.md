@@ -55,7 +55,7 @@ Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-re
 
 Mark the extension as a dependency of your extension:
 
-```ts title="manifest.json"
+```json title="manifest.json"
 {
   "dependencies": ["markdown"]
 }
@@ -112,13 +112,13 @@ export default function MyElement() {
 }
 ```
 
-React [must be imported when using JSX](/ext-dev/pitfalls/#using-jsx).
+React [must be imported when using JSX](/ext-dev/pitfalls#using-jsx).
 
 ## Using Spacepack to find code dynamically
 
 ```ts
 import spacepack from "@moonlight-mod/wp/spacepack_spacepack";
-const { something } = spacepack.findByCode(...)[0].exports;
+const { something } = spacepack.findByCode(/* ... */)[0].exports;
 ```
 
 Remember to add your find to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion) and [declare Spacepack as a dependency](#using-another-extension-as-a-library).

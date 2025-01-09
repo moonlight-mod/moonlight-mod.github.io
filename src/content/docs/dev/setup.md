@@ -24,17 +24,18 @@ You will need [pnpm](https://pnpm.io), as moonlight uses it for dependency and w
 
 ## Project structure
 
-moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces). The project is comprised of multiple packages:
+moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces). The project contains multiple packages:
 
 - `core`: core code and utilities responsible for loading extensions
 - `injector`: the entrypoint for moonlight loaded by the patched Discord client
   - loads the config and detected extensions from disk and forwards them to the other stages
   - loads host modules
-  - sets up `node-preload` to be ran when the browser window is created
+  - sets up `node-preload` to run when the browser window is created
 - `node-preload`: ran before Discord's code on the Node side
   - receives the config/detected extensions from `injector` and forwards it to `web-preload`
   - loads node modules
-  - loads `web-preload` and forwards some inforation to it
+  - loads `web-preload` and forwards some information to it
+  - starts Discord once everything is ready
 - `web-preload`: ran before Discord's code on the web side
   - receives the loaded config and detected extensions from `node-preload`
   - loads extensions and installs their Webpack modules and patches

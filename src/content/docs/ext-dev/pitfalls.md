@@ -7,21 +7,21 @@ sidebar:
 
 ## Web vs Node.js
 
-Node.js code cannot be imported directly from the web side. You must use `moonlight.getNatives`. See [the cookbook](/ext-dev/cookbook/#sharing-code-between-nodejs-and-the-web) for how to access Node.js exports.
+Node.js code cannot be imported directly from the web side. You must use `moonlight.getNatives`. See [the cookbook](/ext-dev/cookbook#sharing-code-between-nodejs-and-the-web) for how to access Node.js exports.
 
 ## Webpack require is not Node.js require
 
 The `require` function used in Webpack modules and patches is not the same as the function in Node.js. Instead, it lets you require other Webpack modules by their IDs.
 
-If you have a Webpack module you want to load, [you can require it by its ID](/ext-dev/webpack/#importing-other-webpack-modules).
+If you have a Webpack module you want to load, [you can require it by its ID](/ext-dev/webpack#importing-other-webpack-modules).
 
 ## The web entrypoint is not a Webpack module
 
-You cannot use Webpack modules inside of `index.ts`, because it is loaded before Webpack is initialized. Instead, [create your own Webpack module](/ext-dev/webpack/#webpack-module-insertion) and use that.
+You cannot use Webpack modules inside of `index.ts`, because it is loaded before Webpack is initialized. Instead, [create your own Webpack module](/ext-dev/webpack#webpack-module-insertion) and use that.
 
 ## Webpack modules only load when required
 
-By default, Webpack modules will not load unless they are required by another module or the `entrypoint` flag is set. If you need a module to run as soon as possible, [set the entrypoint flag](/ext-dev/webpack/#webpack-module-insertion).
+By default, Webpack modules will not load unless they are required by another module or the `entrypoint` flag is set. If you need a module to run as soon as possible, [set the entrypoint flag](/ext-dev/webpack#webpack-module-insertion).
 
 ## Spacepack findByCode matching itself
 
@@ -76,7 +76,7 @@ import { someState } from "@moonlight-mod/wp/yourExtension_someModule";
 const { someState } = require("yourExtension_someModule");
 ```
 
-Remember to [type your module](/ext-dev/webpack/#importing-other-webpack-modules) when using import statements.
+Remember to [type your module](/ext-dev/webpack#importing-other-webpack-modules) when using import statements.
 
 ## Restarting dev mode is required in some scenarios
 

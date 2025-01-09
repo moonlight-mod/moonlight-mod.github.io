@@ -18,7 +18,7 @@ moonlight.moonmap.addExport("discord/components/common/index", "AIconButRenamed"
 });
 ```
 
-If you're registering your own module, you'll need to find the Webpack module ID. You can do this in a Webpack module using [Spacepack](/ext-dev/api/#spacepack):
+If you're registering your own module, you'll need to find the Webpack module ID. You can do this in a Webpack module using [Spacepack](/ext-dev/api#spacepack):
 
 ```ts
 moonlight.moonmap.addModule(spacepack.findByCode(/* ... */)[0].id, "discord/my/custom/module");

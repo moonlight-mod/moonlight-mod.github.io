@@ -160,7 +160,7 @@ You can specify:
 
 - Extension IDs and Webpack module names (e.g. `{ ext: "common", id: "stores" }`)
   - Use this if you're using [an extension library](/ext-dev/api).
-  - Make sure to [mark the extension as a dependency](/ext-dev/cookbook/#using-another-extension-as-a-library) in your extension manifest.
+  - Make sure to [mark the extension as a dependency](/ext-dev/cookbook#using-another-extension-as-a-library) in your extension manifest.
 - Webpack module names (e.g. `{ id: "discord/Dispatcher" }`)
   - Use this if you're using [mappings](/ext-dev/mappings).
 - Strings and regexes to match against other modules
@@ -206,7 +206,7 @@ Remember to [add the module as a dependency](#webpack-module-dependencies).
 
 ## Common patterns
 
-You will see familiar things when [reading Discord Webpack modules](/ext-dev/devtools/#reading-module-sources):
+You will see familiar things when [reading Discord Webpack modules](/ext-dev/devtools#reading-module-sources):
 
 - The pattern `n(/* some number */)` represents a require, and is another module ID inside of the argument. You can pass that module ID to `spacepack.inspect` to read the required module source.
 - `Z` and `ZP` usually correspond to `default` exports.

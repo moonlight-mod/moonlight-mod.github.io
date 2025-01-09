@@ -33,9 +33,9 @@ Then, create a pull request to [the official repository][extensions], adding a m
 To prevent extensions from going unmaintained on the official repository, an adoption policy is in place for other developers to take over ownership of an extension. You can adopt an extension in one of the following scenarios:
 
 - You have written consent from a developer to adopt it
-- The extension has been outdated for over 3 months, and the developer did not respond after contact after 7 days
+- The extension has been outdated for over 3 months, and the developer did not respond to contact after 7 days
 
-An extension is defined as "outdated" when its features do not work, the extension crashes the client, or it has not been updated for the latest [API level](/ext-dev/migrating-api-levels/). We encourage developers to reach out for permission in a public space, like GitHub issues or in the moonlight Discord server, so that the response can be verified.
+An extension is defined as "outdated" when its features do not work, the extension crashes the client, or it has not been updated for the latest [API level](/ext-dev/migrating-api-levels). We encourage developers to reach out for permission in a public space, like GitHub issues or in the moonlight Discord server, so that the response can be verified.
 
 [extensions]: <https://github.com/moonlight-mod/extensions>
 
@@ -47,7 +47,7 @@ Extensions that violate the following rules cannot be submitted to the official 
   - Examples: animated custom statuses, rainbow roles, scheduled messages, automatic message responses (like a bot would to a command), mass deleting messages
 - Respect the privacy of other users. No logging of other users' actions or long-term scraping of the Discord API.
   - Examples: message loggers/"anti delete", message archival, read states via "hidden pixel" tracking
-- Respect the privacy of the user. Interactions with third party services must be clearly denoted inside of the plugin tagline or description.
+- Respect the privacy of the user. Interactions with third party services must be clearly denoted inside the extension tagline or description.
   - Examples: HTTP APIs
 
 If you're unsure if your extension can be submitted or not, feel free to ask!

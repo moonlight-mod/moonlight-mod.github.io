@@ -15,7 +15,7 @@ The global types are available [here](https://github.com/moonlight-mod/moonlight
 
 ## Extension libraries
 
-Remember to [add the module as a dependency](/ext-dev/webpack/#webpack-module-dependencies).
+Remember to [add the module as a dependency](/ext-dev/webpack#webpack-module-dependencies).
 
 ### Context Menu
 

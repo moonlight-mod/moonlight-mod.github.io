@@ -4,7 +4,7 @@ sidebar:
   order: 3
 ---
 
-Inside of the moonlight repository, there is a `scripts` folder with some tools in it.
+Inside the moonlight repository, there is a `scripts` folder with some tools in it.
 
 ## update.js
 

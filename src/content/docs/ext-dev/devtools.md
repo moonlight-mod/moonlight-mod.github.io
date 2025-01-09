@@ -25,7 +25,7 @@ To see the source of a module, print the function with `spacepack.inspect`:
 spacepack.inspect(/* module ID */)
 ```
 
-The returned value will be a function you can double click to see the module source.
+The returned value will be a function you can double-click to see the module source.
 
 You can chain `inspect` with `findByCode` (or an equivalent) when trying to find the source of a patch in a rush:
 
