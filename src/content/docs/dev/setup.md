@@ -13,6 +13,15 @@ You will need [pnpm](https://pnpm.io), as moonlight uses it for dependency and w
 - Build the project with `pnpm run build`.
   - For working on moonlight, a watch mode is available with `pnpm run dev`.
 
+## Contribution guidelines
+
+- Ensure your commits pass Prettier/ESLint. This is a requirement for merge.
+  - moonlight uses [husky](https://typicode.github.io/husky/) to check lints on commit.
+- Please make PRs to the `develop` branch instead of `main`.
+  - `develop` is merged into `main` when moonlight updates happen. Our in-progress work resides on `develop`.
+- Don't break the existing API surface.
+  - Library extensions and moonlight globals cannot change in a way that breaks existing extensions (unless there is an upcoming API bump).
+
 ## Project structure
 
 moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces). The project is comprised of multiple packages:
