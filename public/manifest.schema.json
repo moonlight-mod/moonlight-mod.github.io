@@ -5,6 +5,10 @@
   "description": "A moonlight extension manifest",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
     "id": {
       "type": "string",
       "description": "Unique identifier for your extension"
@@ -21,8 +25,14 @@
     "environment": {
       "description": "Which environment this extension is capable of running in",
       "oneOf": [
-        { "const": "both", "description": "Extension will run on both platforms, the host/native modules MAY be loaded" },
-        { "const": "desktop", "description": "Extension will run on desktop only, the host/native modules are guaranteed to load" },
+        {
+          "const": "both",
+          "description": "Extension will run on both platforms, the host/native modules MAY be loaded"
+        },
+        {
+          "const": "desktop",
+          "description": "Extension will run on desktop only, the host/native modules are guaranteed to load"
+        },
         { "const": "web", "description": "Equivilant to both" }
       ]
     },
@@ -108,6 +118,10 @@
         },
         "source": {
           "type": "string"
+        },
+        "changelog": {
+          "type": "string",
+          "description": "A long-form changelog for the latest update, if any"
         }
       }
     },
