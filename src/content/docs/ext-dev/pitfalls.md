@@ -2,7 +2,7 @@
 title: Pitfalls
 description: There are some important pitfalls you may encounter when writing moonlight extensions.
 sidebar:
-  order: 8
+  order: 9
 ---
 
 ## Web vs Node.js

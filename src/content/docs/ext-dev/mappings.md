@@ -2,7 +2,7 @@
 title: Mappings
 description: moonlight uses mappings that automatically rename Webpack modules for you.
 sidebar:
-  order: 7
+  order: 8
 ---
 
 moonlight uses [mappings](https://github.com/moonlight-mod/mappings) that automatically rename Webpack modules for you.

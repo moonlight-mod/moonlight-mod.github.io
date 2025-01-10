@@ -2,7 +2,7 @@
 title: Extension APIs
 description: moonlight-provided APIs and libraries
 sidebar:
-  order: 6
+  order: 7
 ---
 
 ## moonlight globals

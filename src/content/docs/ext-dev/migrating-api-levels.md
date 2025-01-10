@@ -2,7 +2,7 @@
 title: Migrating API levels
 description: When a moonlight API level increases, all extensions with a different API level will refuse to load.
 sidebar:
-  order: 10
+  order: 11
 ---
 
 When a moonlight API level increases, all extensions with a different API level will refuse to load. The current API level is 2.

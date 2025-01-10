@@ -2,7 +2,7 @@
 title: Webpack modules & patching
 description: Information about the core of moonlight's mod system
 sidebar:
-  order: 5
+  order: 6
 ---
 
 [Webpack](https://webpack.js.org) is a library used by Discord to turn their codebase into a bundled JavaScript file. Code gets converted into Webpack "modules", which are individual functions that can require and load each other. You can think of them as individual files, each with their own code and exports, but converted into single functions inside of the client.
