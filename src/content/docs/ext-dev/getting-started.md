@@ -102,6 +102,7 @@ Now, change the branding of the extension:
 - Replace all uses of `sampleExtension` with your extension ID in the following files:
   - `manifest.json`
   - `index.tsx`
+  - `node.ts`
   - `webpackModules/entrypoint.ts`
   - `env.d.ts` (located at the root folder)
 
