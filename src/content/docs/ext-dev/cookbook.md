@@ -27,6 +27,8 @@ Extensions can load in three different environments:
 - On the Node.js side, where DiscordNative and such live: `node.ts`
 - On the host, with little sandboxing and access to Electron APIs: `host.ts`
 
+These map to the renderer, preload script, and main process in Electron terminology. The term "browser" is used to refer to the moonlight browser extension, while "web" refers to both the desktop and browser platforms.
+
 Most extensions only need to run code in the browser. Use the Node environment if you need access to system APIs, like the filesystem or creating processes. Use the Host environment if you need to use the Electron API.
 
 Remember that [you cannot directly import Node.js modules](/ext-dev/pitfalls#web-vs-nodejs), and should [share code with `moonlight.getNatives`](#sharing-code-between-nodejs-and-the-web).

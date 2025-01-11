@@ -148,6 +148,14 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
 };
 ```
 
+If you want types for `import` statements, you can automatically generate them based off of the exports with a declaration file:
+
+```ts title="env.d.ts"
+declare module "@moonlight-mod/wp/sampleExtension_someLibrary" {
+  export * from "sampleExtension/webpackModules/someLibrary";
+}
+```
+
 :::info
 When using `export default` or `export something` in a ESM Webpack module, you will need to do `require().default` or `require().something` to access it. You can also use `module.exports` from inside of the Webpack module, but it is not recommended.
 :::

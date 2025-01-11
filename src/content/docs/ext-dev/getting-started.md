@@ -104,6 +104,7 @@ Now, change the branding of the extension:
   - `index.tsx`
   - `node.ts`
   - `webpackModules/entrypoint.ts`
+  - `webpackModules/someLibrary.ts`
   - `env.d.ts` (located at the root folder)
 
 ### Build and run the extension

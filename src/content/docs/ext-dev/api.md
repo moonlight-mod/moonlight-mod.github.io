@@ -13,6 +13,7 @@ The global types are available [here](https://github.com/moonlight-mod/moonlight
   - Contains patching and Webpack module information, the API level, localStorage, LunAST, moonmap
 - `moonlightNode`: available in the web *and* Node.js environments
   - Contains configuration details, browser checks
+  - Polyfilled in the browser extension
 - `moonlightNodeSandboxed`: available in the Node.js environments (`node.ts`)
   - Contains filesystem APIs
 - `moonlightHost`: available in the host environment (`host.ts`)
