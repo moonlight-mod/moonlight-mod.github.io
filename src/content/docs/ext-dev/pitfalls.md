@@ -25,11 +25,13 @@ By default, Webpack modules will not load unless they are required by another mo
 
 ## Spacepack findByCode matching itself
 
-When using the `findByCode` function in Spacepack while inside of a Webpack module, you can sometimes accidentally match yourself. It is suggested to split a string in half and concatenante it, such that the string is fragmented in source but will evaluate to the same string:
+When using the `findByCode` function in Spacepack while inside of a Webpack module, you can sometimes accidentally match yourself. It is suggested to fragment the string in source but have it evaluate to the same string:
 
 ```ts
-const { something } = spacepack.findByCode("__SECRET_INTERNALS_DO_NOT" + "_USE_OR_YOU_WILL_BE_FIRED")[0].exports;
+const { something } = spacepack.findByCode(`__SECRET_INTERNALS_DO_NOT${""}_USE_OR_YOU_WILL_BE_FIRED`)[0].exports;
 ```
+
+Note that esbuild will merge string concatenation, so you must be creative!
 
 ## Using JSX
 
