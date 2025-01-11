@@ -9,9 +9,14 @@ sidebar:
 
 The global types are available [here](https://github.com/moonlight-mod/moonlight/blob/main/packages/types/src/globals.ts). Read the comments for more information. What globals you can use depends on [the current environment](/ext-dev/cookbook#extension-entrypoints):
 
-- `moonlight`: available in the web environment
+- `moonlight`: available in the web environment (`index.ts`, Webpack modules)
+  - Contains patching and Webpack module information, the API level, localStorage, LunAST, moonmap
 - `moonlightNode`: available in the web *and* Node.js environments
-- `moonlightHost`: available in the host environment
+  - Contains configuration details, browser checks
+- `moonlightNodeSandboxed`: available in the Node.js environments (`node.ts`)
+  - Contains filesystem APIs
+- `moonlightHost`: available in the host environment (`host.ts`)
+  - Contains configuration details, `.asar` path
 
 ## Extension libraries
 
