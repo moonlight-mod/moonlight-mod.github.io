@@ -181,6 +181,10 @@
           "description": {
             "type": "string",
             "description": "A short description of the setting's purpose"
+          },
+          "advice": {
+            "description": "Action that needs to be taken by the user after changing this setting, defaults to suggesting a reload",
+            "enum": ["none", "reload", "restart"]
           }
         },
         "allOf": [
@@ -299,26 +303,24 @@
           "required": ["type", "options"],
           "properties": {
             "options": {
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "label": {
-                      "type": "string"
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  { "type": "string" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
                     },
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "required": ["label", "value"]
-                }
-              ]
+                    "required": ["label", "value"]
+                  }
+                ]
+              }
             },
             "default": { "type": "string" }
           }
