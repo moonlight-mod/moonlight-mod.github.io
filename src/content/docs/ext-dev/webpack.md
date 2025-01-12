@@ -33,11 +33,13 @@ A patch consists of three parts:
 - `match` is used to find the piece of code we want to patch inside of the target Webpack module. The area of code that is matched is replaced with the `replacement`.
 - `replacement` is the code that replaces the matched code.
 
-`find` and `match` can both be regular expressions, and `replacement` can either be a string or a function that returns a string. When `replacement` is a function, the first argument will be the matched string, and the subsequent arguments will be the matched groups (if any).
+`find` and `match` can both be regular expressions. `find` can also be the name of a [mapped module](/ext-dev/mappings). `replacement` can either be a string or a function that returns a string. When `replacement` is a function, the first argument will be the matched string, and the subsequent arguments will be the matched groups (if any).
+
+If you have multiple patches targeting the same module, `replace` can be an array. By default, it will try to apply all patches in the array. If you want to only apply the patches if every patch succeeds, set `hardFail` to true.
 
 You can also set the `type` field in `replace` to `PatchReplaceType.Module`, in which case the `replacement` will be used as the entire module's code. This completely overrides it, breaking other extensions that patch the same module, so use it wisely.
 
-When `match` is a regex and `replacement` is a function, it will be passed the groups matched in the regex. This is useful for capturing and reusing the minified variable names.
+When `match` is a regex and `replacement` is a function, it will be passed the groups matched in the regex. This is useful for capturing and reusing the minified variable names. You can use `\i` as a shorthand to match minified variable names.
 
 Inside of patches, you have access to `module`, `exports`, and `require`. You can use the Webpack require function to load [your own Webpack modules](#webpack-module-insertion).
 
@@ -99,7 +101,7 @@ export const patches: ExtensionWebExports["patches"] = [
 
 It is suggested to follow some guidelines when writing patches:
 
-- Never hardcode minified variable names. Use `.` (or `.{1,2}` for longer names), so the patch still functions when the names change.
+- Never hardcode minified variable names. Use `\i` (or `.`/`.{1,2}` if you prefer), so the patch still functions when the names change.
 - Use capture groups (e.g. `(.)`) to use previous variable names and snippets of code in your patches.
 - Keep logic inside of the patch to a minimum, and instead use `require` to [load your own Webpack module](#webpack-module-insertion).
 
