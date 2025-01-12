@@ -18,12 +18,19 @@ When publishing to npm, versions are constant. Exercise caution.
 
 moonlight CI builds the `develop` branch automatically. This section is for publishing a new stable, versioned release.
 
+- Checkout the `develop` branch.
+- Pull to ensure you have the latest changes.
 - Checkout the `main` branch.
 - Merge `develop` into `main`.
-- Update the version (in `package.json` and the browser manifests) and write `CHANGELOG.md`.
+- Update the version in the following files:
+  - `package.json`
+  - `packages/browser/manifest.json`
+  - `packages/browser/manifestv2.json`
+- Write `CHANGELOG.md`.
   - Do not append to the changelog - remake it.
-- If any types changes were made in this release, [publish the types](#publishing-types).
+- If any types changes were made in this release, [update the types version](#publishing-types).
 - Commit and push to `main`.
+  - Make sure to push before creating the tag, or you might confuse CI (reasons unknown).
 - Create a tag with the version, **starting with the character `v`**: `git tag vX.Y.Z`
   - This `v` is very important. CI will not pick it up otherwise. The installers will not know what to do without it.
 - Push the tag: `git push --tags`
@@ -34,12 +41,11 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
 ## Publishing types
 
 - Update the version in `packages/types/package.json`.
-  - The version of types does not need to be in sync with the version of moonlight.
-- Commit and push to `main`.
-  - If releasing a stable build of moonlight, make sure the main version bump and types version bump are in the same commit.
-- Publish the package: `pnpm publish --access public`
-  - Publish from within the `packages/types` directory.
+  - We originally didn't have the types version in sync with moonlight, but we're aiming to resync. Bump the patch version until we can eventually re-synchronize them.
+- Continue to publish a moonlight release like normal, and wait for CI to finish.
+- [Run the types workflow](https://github.com/moonlight-mod/moonlight/actions/workflows/types.yml) to manually trigger a release to npm.
 - In [the sample extension](https://github.com/moonlight-mod/sample-extension), update the types package: `pnpm update @moonlight-mod/types`
+  - Remember to `git pull` and `pnpm i` beforehand so you are up to date.
 - Commit and push to the sample extension.
 
 ## Publishing LunAST/moonmap/mappings
