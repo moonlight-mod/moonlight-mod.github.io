@@ -17,16 +17,21 @@ Please check if the issue has already been reported beforehand. Reporting the sa
 
 ## Update moonlight
 
-moonlight, and your extensions, can be updated from Moonbase. If you cannot access it, moonbase will attempt to let you update from the crash screen itself.
+moonlight itself can be updated from a number of ways:
 
-If you cannot update from the crash screen, you can update moonlight using the moonlight installer (or however you installed moonlight).
+- The update prompt at the top of Moonbase
+- The Discord tray icon (right click > moonlight > Update and restart)
+- The Discord crash screen
+- The moonlight installer (or however you installed moonlight)
+
+Extensions can be updated from Moonbase. If you cannot access it, moonbase will attempt to let you update extensions from the crash screen itself.
 
 ## Reset your config
 
-The moonlight installer features a "Reset config" button. Clicking it will backup and reset your config. When you restart Discord, your client will act like you installed moonlight for the first time, with all extensions disabled and all settings reset.
+You can reset your moonlight configuration through the moonlight installer or the Discord tray icon. Clicking it will backup and reset your config. When you restart Discord, your client will act like you installed moonlight for the first time, with all extensions disabled and all settings reset.
 
 You can also edit the config file manually, if you wish. See [the manual installation instructions](/using/install#manual-installations) for the config path.
 
 ## Unpatch moonlight
 
-If all else fails, you can unpatch moonlight from the moonlight installer (or however you installed moonlight), and wait for an update to moonlight.
+If all else fails, you can unpatch moonlight from the moonlight installer (or however you installed moonlight), and wait for an update to moonlight. We try and fix things as soon as possible, but please remember we are a team of volunteers building software in our free time.
