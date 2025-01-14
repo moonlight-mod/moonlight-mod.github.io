@@ -57,7 +57,7 @@ You can change the user-facing name of the extension, but never modify the ID.
 Now, run this command and follow the instructions:
 
 ```shell
-$ pnpx github:moonlight-mod/create-extension
+$ pnpm create @moonlight-mod/extension
 ```
 
 After the project is created, change the `meta` field in `manifest.json`:
