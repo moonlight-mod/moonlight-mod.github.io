@@ -1,152 +1,453 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://moonlight-mod.github.io/manifest.schema.json",
-  "title": "Extension manifest",
-  "description": "A moonlight extension manifest",
-  "type": "object",
-  "properties": {
-    "$schema": {
-      "type": "string",
-      "format": "uri"
-    },
-    "id": {
-      "type": "string",
-      "description": "Unique identifier for your extension"
-    },
-    "version": {
-      "type": "string",
-      "description": "Version of your extension, needed for publishing"
-    },
-    "apiLevel": {
-      "type": "integer",
-      "exclusiveMinimum": 0,
-      "description": "API level this extension targets, if it does not match the current version, the extension will not be loaded"
-    },
-    "environment": {
-      "description": "Which environment this extension is capable of running in",
-      "oneOf": [
-        {
-          "const": "both",
-          "description": "Extension will run on both platforms, the host/native modules MAY be loaded"
-        },
-        {
-          "const": "desktop",
-          "description": "Extension will run on desktop only, the host/native modules are guaranteed to load"
-        },
-        { "const": "web", "description": "Equivilant to both" }
-      ]
-    },
-    "meta": {
-      "$ref": "#/definitions/metadata"
-    },
-    "dependencies": {
-      "type": "array",
-      "description": "List of extensions identifiers that this extension depends on",
-      "items": {
-        "type": "string"
-      }
-    },
-    "suggested": {
-      "type": "array",
-      "description": "List of extensions identifiers that this extension suggests using",
-      "items": {
-        "type": "string"
-      }
-    },
-    "incompatible": {
-      "type": "array",
-      "description": "List of extensions identifiers that this extension is incompatible with",
-      "items": {
-        "type": "string"
-      }
-    },
-    "settings": {
-      "$ref": "#/definitions/settings"
-    },
-    "cors": {
-      "type": "array",
-      "description": "List of URLs that should have CORS bypassed",
-      "items": {
-        "type": "string",
-        "format": "uri"
-      }
-    },
-    "blocked": {
-      "type": "array",
-      "description": "List of URL match patterns for which requests should be blocked",
-      "items": {
-        "type": "string",
-        "format": "uri"
-      }
-    }
-  },
-  "additionalProperties": false,
-  "required": ["id", "apiLevel"],
+  "$ref": "#/definitions/ExtensionManifest",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "metadata": {
-      "type": "object",
-      "description": "Purely visual metadata",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "A user-readable display name for your extension"
-        },
-        "tagline": {
-          "type": "string",
-          "description": "A short string displayed beneath the extension's name"
-        },
-        "description": {
-          "type": "string",
-          "description": "A long-form description visible in a separate tab"
-        },
-        "authors": {
-          "type": "array",
-          "description": "Authors involved in the creation of this extension",
-          "items": {
-            "$ref": "#/definitions/author"
-          }
-        },
-        "deprecated": {
-          "type": "boolean"
-        },
-        "tags": {
-          "type": "array",
-          "description": "List of tags the extension is part of",
-          "items": {
-            "$ref": "#/definitions/tag"
-          }
-        },
-        "source": {
-          "type": "string"
-        },
-        "changelog": {
-          "type": "string",
-          "description": "A long-form changelog for the latest update, if any"
-        }
-      }
-    },
-    "author": {
-      "oneOf": [
+    "ExtensionAuthor": {
+      "anyOf": [
         {
           "type": "string"
         },
         {
-          "type": "object",
+          "additionalProperties": false,
           "properties": {
-            "name": {
-              "type": "string",
-              "description": "The name of the author"
-            },
             "id": {
-              "type": "string",
-              "description": "The user ID of the corresponding user"
+              "$ref": "#/definitions/Snowflake"
+            },
+            "name": {
+              "type": "string"
             }
           },
-          "required": ["name"]
+          "required": [
+            "name"
+          ],
+          "type": "object"
         }
       ]
     },
-    "tag": {
+    "ExtensionEnvironment": {
+      "enum": [
+        "both",
+        "desktop",
+        "web"
+      ],
+      "type": "string"
+    },
+    "ExtensionManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "apiLevel": {
+          "description": "The API level this extension targets. If it does not match the current version, the extension will not be loaded.",
+          "type": "number"
+        },
+        "blocked": {
+          "description": "A list of URLs to block all requests to. This is implemented by checking if the start of the URL matches.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "cors": {
+          "description": "A list of URLs to bypass CORS for. This is implemented by checking if the start of the URL matches.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dependencies": {
+          "description": "A list of extension IDs that are required for the extension to load.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "environment": {
+          "$ref": "#/definitions/ExtensionEnvironment",
+          "description": "Which environment this extension is capable of running in."
+        },
+        "id": {
+          "description": "A unique identifier for your extension.",
+          "type": "string"
+        },
+        "incompatible": {
+          "description": "A list of extension IDs that the extension is incompatible with. If two incompatible extensions are enabled, one of them will not load.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "additionalProperties": false,
+          "description": "Metadata about your extension for use in Moonbase.",
+          "properties": {
+            "authors": {
+              "description": "List of authors that worked on this extension - accepts string or object with ID.",
+              "items": {
+                "$ref": "#/definitions/ExtensionAuthor"
+              },
+              "type": "array"
+            },
+            "changelog": {
+              "description": "A changelog to show in Moonbase. Moonbase will show the changelog for the latest version, even if it is not installed.",
+              "type": "string"
+            },
+            "deprecated": {
+              "description": "Whether the extension is deprecated and no longer receiving updates.",
+              "type": "boolean"
+            },
+            "description": {
+              "description": "A longer description that can use Markdown.",
+              "type": "string"
+            },
+            "name": {
+              "description": "A human friendly name for your extension as a proper noun.",
+              "type": "string"
+            },
+            "source": {
+              "description": "The URL to the source repository.",
+              "type": "string"
+            },
+            "tagline": {
+              "description": "A short tagline that appears below the name.",
+              "type": "string"
+            },
+            "tags": {
+              "description": "A list of tags that are relevant to the extension.",
+              "items": {
+                "$ref": "#/definitions/ExtensionTag"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "settings": {
+          "additionalProperties": {
+            "$ref": "#/definitions/ExtensionSettingsManifest"
+          },
+          "description": "A list of settings for your extension, where the key is the settings ID.",
+          "type": "object"
+        },
+        "suggested": {
+          "description": "A list of extension IDs that the user may want to install.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "version": {
+          "description": "A version string for your extension - doesn't need to follow a specific format. Required for publishing.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "type": "object"
+    },
+    "ExtensionSettingsAdvice": {
+      "enum": [
+        "none",
+        "reload",
+        "restart"
+      ],
+      "type": "string"
+    },
+    "ExtensionSettingsManifest": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "type": "boolean"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "boolean",
+              "description": "Displays as a simple switch.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "type": "number"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "max": {
+              "type": "number"
+            },
+            "min": {
+              "type": "number"
+            },
+            "type": {
+              "const": "number",
+              "description": "Displays as a simple slider.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "type": "string"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "string",
+              "description": "Displays as a single line string input.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "type": "string"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "multilinestring",
+              "description": "Displays as a multiple line string input.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "type": "string"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "options": {
+              "items": {
+                "$ref": "#/definitions/SelectOption"
+              },
+              "type": "array"
+            },
+            "type": {
+              "const": "select",
+              "description": "A dropdown to pick between one of many values.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "options",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "options": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": {
+              "const": "multiselect",
+              "description": "A dropdown to pick multiple values.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "options",
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "list",
+              "description": "A list of strings that the user can add or remove from.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "dictionary",
+              "description": "A dictionary (key-value pair) that the user can add or remove from.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "advice": {
+              "$ref": "#/definitions/ExtensionSettingsAdvice",
+              "description": "The \"advice\" to give upon changing this setting. Can be configured to reload the client, restart the client, or do nothing."
+            },
+            "default": {},
+            "description": {
+              "description": "A longer description for the setting. Markdown is not supported.",
+              "type": "string"
+            },
+            "displayName": {
+              "description": "A human friendly name for the setting.",
+              "type": "string"
+            },
+            "type": {
+              "const": "custom",
+              "description": "A custom component. You can use the registerConfigComponent function in the Moonbase API to register a React component to render here.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ExtensionTag": {
       "enum": [
         "accessibility",
         "appearance",
@@ -163,214 +464,34 @@
         "profiles",
         "qol",
         "library"
+      ],
+      "type": "string"
+    },
+    "SelectOption": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "value",
+            "label"
+          ],
+          "type": "object"
+        }
       ]
     },
-    "settings": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "required": ["type"],
-        "properties": {
-          "type": {
-            "$ref": "#/definitions/settings/definitions/type"
-          },
-          "displayName": {
-            "type": "string",
-            "description": "User-facing name of the setting"
-          },
-          "description": {
-            "type": "string",
-            "description": "A short description of the setting's purpose"
-          },
-          "advice": {
-            "description": "Action that needs to be taken by the user after changing this setting, defaults to suggesting a reload",
-            "enum": ["none", "reload", "restart"]
-          }
-        },
-        "allOf": [
-          {
-            "if": { "properties": { "type": { "const": "boolean" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/boolean" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "number" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/number" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "string" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/string" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "multilinestring" } } },
-            "then": {
-              "$ref": "#/definitions/settings/definitions/multilinestring"
-            }
-          },
-          {
-            "if": { "properties": { "type": { "const": "select" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/select" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "multiselect" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/multiselect" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "list" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/list" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "dictionary" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/dictionary" }
-          },
-          {
-            "if": { "properties": { "type": { "const": "custom" } } },
-            "then": { "$ref": "#/definitions/settings/definitions/custom" }
-          }
-        ]
-      },
-      "definitions": {
-        "type": {
-          "oneOf": [
-            {
-              "const": "boolean",
-              "description": "A simple switch"
-            },
-            {
-              "const": "number",
-              "description": "Number field"
-            },
-            {
-              "const": "string",
-              "description": "String input field"
-            },
-            {
-              "const": "multilinestring",
-              "description": "String input that allows multiple lines"
-            },
-            {
-              "const": "select",
-              "description": "Selection between one of multiple values"
-            },
-            {
-              "const": "multiselect",
-              "description": "Selection of multiple values"
-            },
-            {
-              "const": "multiselect",
-              "description": "Selection of multiple values"
-            },
-            {
-              "const": "list",
-              "description": "List of strings defined by the user"
-            },
-            {
-              "const": "dictionary",
-              "description": "Mapping of strings defined by the user"
-            },
-            {
-              "const": "custom",
-              "description": "Custom settings component, currently not implemented"
-            }
-          ]
-        },
-        "boolean": {
-          "required": ["type"],
-          "properties": {
-            "default": { "type": "boolean" }
-          }
-        },
-        "number": {
-          "required": ["type"],
-          "properties": {
-            "default": { "type": "number" },
-            "min": { "type": "number" },
-            "max": { "type": "number" }
-          }
-        },
-        "string": {
-          "required": ["type"],
-          "properties": {
-            "default": { "type": "string" }
-          }
-        },
-        "multilinestring": {
-          "required": ["type"],
-          "properties": {
-            "default": { "type": "string" }
-          }
-        },
-        "select": {
-          "required": ["type", "options"],
-          "properties": {
-            "options": {
-              "type": "array",
-              "items": {
-                "oneOf": [
-                  { "type": "string" },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "label": {
-                        "type": "string"
-                      },
-                      "value": {
-                        "type": "string"
-                      }
-                    },
-                    "required": ["label", "value"]
-                  }
-                ]
-              }
-            },
-            "default": { "type": "string" }
-          }
-        },
-        "multiselect": {
-          "required": ["type", "options"],
-          "properties": {
-            "options": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "default": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "list": {
-          "required": ["type"],
-          "properties": {
-            "default": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "dictionary": {
-          "required": ["type"],
-          "properties": {
-            "default": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "custom": {
-          "required": ["type"],
-          "properties": {
-            "default": {}
-          }
-        }
-      }
+    "Snowflake": {
+      "type": "string"
     }
   }
 }
