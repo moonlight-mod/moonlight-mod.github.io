@@ -1,0 +1,159 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import {
+  LinkButton,
+  Tabs,
+  TabItem,
+  Badge
+} from "@astrojs/starlight/components";
+import { marked } from "marked";
+
+// Copied from moonlight itself
+const apiLevel = 2;
+
+enum ExtensionTag {
+  Accessibility = "accessibility",
+  Appearance = "appearance",
+  Chat = "chat",
+  Commands = "commands",
+  ContextMenu = "contextMenu",
+  DangerZone = "dangerZone",
+  Development = "development",
+  Fixes = "fixes",
+  Fun = "fun",
+  Markdown = "markdown",
+  Voice = "voice",
+  Privacy = "privacy",
+  Profiles = "profiles",
+  QualityOfLife = "qol",
+  Library = "library"
+}
+const tagNames: Record<ExtensionTag, string> = {
+  [ExtensionTag.Accessibility]: "Accessibility",
+  [ExtensionTag.Appearance]: "Appearance",
+  [ExtensionTag.Chat]: "Chat",
+  [ExtensionTag.Commands]: "Commands",
+  [ExtensionTag.ContextMenu]: "Context Menu",
+  [ExtensionTag.DangerZone]: "Danger Zone",
+  [ExtensionTag.Development]: "Development",
+  [ExtensionTag.Fixes]: "Fixes",
+  [ExtensionTag.Fun]: "Fun",
+  [ExtensionTag.Markdown]: "Markdown",
+  [ExtensionTag.Voice]: "Voice",
+  [ExtensionTag.Privacy]: "Privacy",
+  [ExtensionTag.Profiles]: "Profiles",
+  [ExtensionTag.QualityOfLife]: "Quality of Life",
+  [ExtensionTag.Library]: "Library"
+};
+
+type ExtensionManifest = {
+  id: string;
+  version?: string;
+  apiLevel?: number;
+
+  meta?: {
+    name?: string;
+    tagline?: string;
+    description?: string;
+    authors?: (string | { name: string })[];
+    deprecated?: boolean;
+    tags?: ExtensionTag[];
+    source?: string;
+    changelog?: string;
+  };
+
+  dependencies?: string[];
+  suggested?: string[];
+  incompatible?: string[];
+
+  cors?: string[];
+  blocked?: string[];
+
+  download: string;
+};
+
+const extensions = (
+  (await fetch(
+    "https://moonlight-mod.github.io/extensions-dist/repo.json"
+  ).then((res) => res.json())) as ExtensionManifest[]
+)
+  .filter((ext) => ext.apiLevel === apiLevel)
+  .sort((a, b) => {
+    const aName = a.meta?.name ?? a.id;
+    const bName = b.meta?.name ?? b.id;
+    return aName.localeCompare(bName);
+  });
+---
+
+<StarlightPage
+  frontmatter={{
+    title: "Extension list"
+  }}
+  headings={extensions.map((ext) => {
+    return {
+      text: ext.meta?.name || ext.id,
+      slug: ext.id,
+      depth: 2
+    };
+  })}
+>
+  <p>
+    This list is automatically generated from the official repository. It does
+    not contain the extensions built into moonlight. This list may be out of
+    date.
+  </p>
+
+  {
+    extensions.map((ext) => (
+      <div id={ext.id}>
+        <header>
+          <h2>{ext.meta?.name || ext.id}</h2>
+        </header>
+
+        <Tabs>
+          <TabItem label="Info">
+            {ext.meta?.authors && (
+              <h6 class="noMargin">
+                by
+                {ext.meta.authors
+                  .map((author) =>
+                    typeof author === "string" ? author : author.name
+                  )
+                  .join(", ")}
+              </h6>
+            )}
+
+            {ext.meta?.tags && (
+              <div class="noMargin">
+                {ext.meta.tags.map((tag) => (
+                  <Badge text={tagNames[tag]} />
+                ))}
+              </div>
+            )}
+
+            {ext.meta?.tagline && <span>{ext.meta.tagline}</span>}
+          </TabItem>
+
+          {ext.meta?.description && (
+            <TabItem label="Description">
+              <p set:html={marked(ext.meta.description)} />
+            </TabItem>
+          )}
+
+          <TabItem label="Links">
+            {ext.meta?.source && (
+              <LinkButton href={ext.meta.source}>Source code</LinkButton>
+            )}
+            <LinkButton href={ext.download}>Download .asar</LinkButton>
+          </TabItem>
+        </Tabs>
+      </div>
+    ))
+  }
+</StarlightPage>
+
+<style>
+  .noMargin {
+    margin: 0 !important;
+  }
+</style>
