@@ -47,8 +47,11 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
 - In [the sample extension](https://github.com/moonlight-mod/sample-extension), update the types package: `pnpm update @moonlight-mod/types`
   - Remember to `git pull` and `pnpm i` beforehand so you are up to date.
 - Commit and push to the sample extension.
+- Update [create-extension](https://github.com/moonlight-mod/create-extension) following [these instructions](#publishing-other-libraries).
 
-## Publishing LunAST/moonmap/mappings
+## Publishing other libraries
+
+(e.g. moonmap, LunAST, mappings, create-extension)
 
 - Update package.json with a new version.
 - Commit and push to `main`.
@@ -56,4 +59,4 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
   - Same reasoning as [above](#publishing-moonlight).
 - Push the tag: `git push --tags`
 - Wait for the package to be uploaded to npm.
-- Use [the update helper script](/dev/helper-scripts) to update the dependencies in moonlight.
+- Use [the update helper script](/dev/helper-scripts) to update the dependencies in moonlight if needed.

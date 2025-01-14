@@ -26,7 +26,7 @@ Then, create a pull request to [the official repository][extensions], adding a m
 }
 ```
 
-`repository` must be a valid HTTPS Git URL. `commit` must be a valid commit in that repository. `scripts` is an array of pnpm scripts to build your project - for repositories using the sample extension, this will be `build` and `repo`. `artifact` is the location of the output file - for repositories using the sample extension, this will be `repo/<extension id>.asar`.
+`repository` must be a valid HTTPS Git URL. `commit` must be a valid commit in that repository. `scripts` is an array of pnpm scripts to build your project - for repositories using the official build script, this will be `build` and `repo`. `artifact` is the location of the output file - for repositories using the sample extension, this will be `repo/<extension id>.asar`.
 
 ## Adoption rules
 

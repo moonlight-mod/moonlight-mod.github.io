@@ -1,6 +1,6 @@
 ---
 title: Getting started
-description: Information on getting started with the sample extension
+description: Information on getting started with moonlight extension development
 sidebar:
   order: 1
 ---

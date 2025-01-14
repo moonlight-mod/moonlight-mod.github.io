@@ -35,7 +35,7 @@ Note that esbuild will merge string concatenation, so you must be creative!
 
 ## Using JSX
 
-[JSX](https://react.dev/learn/writing-markup-with-jsx) (and its TypeScript version, TSX) is an extension of JavaScript that allows you to write HTML-like syntax in your code. The default configuration of the sample extension is to convert the JSX to `React.createElement` calls:
+[JSX](https://react.dev/learn/writing-markup-with-jsx) (and its TypeScript version, TSX) is an extension of JavaScript that allows you to write HTML-like syntax in your code. The default configuration of the build script is to convert the JSX to `React.createElement` calls:
 
 ```tsx
 const myElement = <span>Hi!</span>;
