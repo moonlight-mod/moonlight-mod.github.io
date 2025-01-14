@@ -86,7 +86,7 @@ Watch mode will need to be restarted if you edit the extension manifest, add/rem
 
 ## Publish to GitHub
 
-We suggest publishing to GitHub to take use of the provided GitHub workflow. You can choose any Git host you like, though!
+We suggest publishing to GitHub to make use of the provided GitHub workflow. You can choose any Git host you like, though!
 
 In the repository settings, make sure GitHub Actions is enabled for your repository, and that the GitHub Pages source is set to GitHub Actions:
 
