@@ -43,6 +43,8 @@ export default defineConfig({
       },
       favicon: "/favicon.png",
       social: {
+        // It's Bluesky not BlueSky lol
+        blueSky: "https://bsky.app/profile/did:plc:uiwhayeayjutykag74l3yits",
         github: "https://github.com/moonlight-mod/moonlight"
       },
       editLink: {
