@@ -60,3 +60,11 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
 - Push the tag: `git push --tags`
 - Wait for the package to be uploaded to npm.
 - Use [the update helper script](/dev/helper-scripts) to update the dependencies in moonlight if needed.
+
+## Publishing the installer
+
+- Update `Cargo.toml`, `metainfo.xml`, and `assets/Info.plist` with a new version.
+- Write a changelog into `metainfo.xml`.
+- Commit and push to `main`.
+- Wait for CI to finish and download the .exe/.dmg.
+- Upload a new release, creating a tag in the GitHub UI **starting with the character `v`**, with the release description being the same as in `metainfo.xml`.
