@@ -48,6 +48,7 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
   - Remember to `git pull` and `pnpm i` beforehand so you are up to date.
 - Commit and push to the sample extension.
 - Update [create-extension](https://github.com/moonlight-mod/create-extension) following [these instructions](#publishing-other-libraries).
+- If the manifest type was updated, regenerate the schema: `pnpx ts-json-schema-generator --path './packages/types/src/*.ts' --type ExtensionManifest -f ./tsconfig.json > ../moonlight-mod.github.io/public/manifest.schema.json`
 
 ## Publishing other libraries
 

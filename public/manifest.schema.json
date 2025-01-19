@@ -101,6 +101,10 @@
               "description": "A longer description that can use Markdown.",
               "type": "string"
             },
+            "donate": {
+              "description": "A donation link (or other method of support). If you don't want financial contributions, consider putting your favorite charity here!",
+              "type": "string"
+            },
             "name": {
               "description": "A human friendly name for your extension as a proper noun.",
               "type": "string"
