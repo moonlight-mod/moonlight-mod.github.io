@@ -149,3 +149,24 @@ import { UserStore } from "@moonlight-mod/wp/common_stores";
 
 console.log(UserStore.getCurrentUser());
 ```
+
+## Modifying message content before it is sent
+
+Remember to add `commands` to your manifest's dependencies and `{ext: "commands", id: "commands"}` to your Webpack module's dependencies.
+
+```ts
+import Commands from "@moonlight-mod/wp/commands_commands";
+
+Commands.registerLegacyCommand("unique-id", {
+  // This can be a more specific regex, but this only tells it to run if it
+  // finds anything that matches this regex within the message.
+  // You will have to do your own extraction and processing if you want to do
+  // something based on a specific string.
+  match: /.*/,
+  action: (content, context) => {
+    // Modify the content
+
+    return {content};
+  }
+})
+```
