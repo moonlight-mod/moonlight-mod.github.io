@@ -44,10 +44,6 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
   - We originally didn't have the types version in sync with moonlight, but we're aiming to resync. Bump the patch version until we can eventually re-synchronize them.
 - Continue to publish a moonlight release like normal, and wait for CI to finish.
 - [Run the types workflow](https://github.com/moonlight-mod/moonlight/actions/workflows/types.yml) to manually trigger a release to npm.
-- In [the sample extension](https://github.com/moonlight-mod/sample-extension), update the types package: `pnpm update @moonlight-mod/types`
-  - Remember to `git pull` and `pnpm i` beforehand so you are up to date.
-- Commit and push to the sample extension.
-- Update [create-extension](https://github.com/moonlight-mod/create-extension) following [these instructions](#publishing-other-libraries).
 - If the manifest type was updated, regenerate the schema: `pnpx ts-json-schema-generator --path './packages/types/src/*.ts' --type ExtensionManifest -f ./tsconfig.json > ../moonlight-mod.github.io/public/manifest.schema.json`
 
 ## Publishing other libraries

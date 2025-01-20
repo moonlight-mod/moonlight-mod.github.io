@@ -4,7 +4,7 @@ description: How to install, build, and use moonlight
 sidebar:
   order: 1
 ---
-import { FileTree, LinkButton } from "@astrojs/starlight/components";
+import { FileTree, LinkButton, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
 
 There are several ways to install moonlight. It is suggested to use the installer or CLI if you are not a developer.
 
@@ -16,30 +16,57 @@ Despite that, we try our best to ensure your account and system is safe. There a
 
 ## moonlight installer
 
-<LinkButton href="https://github.com/moonlight-mod/moonlight-installer/releases/latest/download/moonlight-installer.exe" icon="seti:windows">Download</LinkButton>
-<LinkButton href="https://github.com/moonlight-mod/moonlight-installer/releases/latest/download/moonlight-installer-macos.dmg" icon="apple">Download</LinkButton>
+The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation.
 
-The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. **This is the suggested way to install moonlight for Windows and macOS users.**
+Discord installations are autodetected on your machine. Keep the installer in the event that a Discord update breaks moonlight, so you can unpatch Discord or update moonlight.
 
-To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation. Discord installations are autodetected on your machine. Keep the installer in the event that a Discord update breaks moonlight, so you can unpatch Discord or update moonlight.
+<Tabs>
+  <TabItem label="Windows">
+    <LinkButton href="https://github.com/moonlight-mod/moonlight-installer/releases/latest/download/moonlight-installer.exe" icon="seti:windows">Download</LinkButton>
+
+    Download and run `moonlight-installer.exe`. Close Discord fully before patching.
+  </TabItem>
+
+  <TabItem label="macOS">
+    <LinkButton href="https://github.com/moonlight-mod/moonlight-installer/releases/latest/download/moonlight-installer-macos.dmg" icon="apple">Download</LinkButton>
+
+    Download and run `moonlight-installer-macos.dmg`.
+    <Aside>
+      Patching on macOS may cause issues with application signing, and moonlight currently does not persist between updates on macOS. This is planned to be fixed in the near future.
+    </Aside>
+  </TabItem>
+
+  <TabItem label="Linux">
+    <LinkButton href="https://flathub.org/apps/io.github.moonlight_mod.moonlight-installer" icon="linux">Download</LinkButton>
+
+    Install [Flatpak](https://flatpak.org/), then install the moonlight installer from Flathub.
+
+    <Aside>
+      Only some methods of Discord installations are supported:
+
+      - Local installations in `~/.local/share`
+        - A script to install Discord locally (maintained by a community member) is available [here](https://gist.github.com/maddymeows/6af1a5d5a870c13b7b159c4463edee70).
+        - moonlight has an auto updater for Linux in the "Native Fixes" extension.
+      - Discord installed through Flatpak as a user
+        - System installations are not supported.
+
+      Discord installations from system package managers are not supported.
+    </Aside>
+  </TabItem>
+</Tabs>
+
 
 ## moonlight-cli
 
-A [command line installer](https://github.com/moonlight-mod/moonlight-installer/tree/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight. **This is the suggested way to install moonlight for Linux users.**
+A [command line installer](https://github.com/moonlight-mod/moonlight-installer/tree/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight.
 
 ```shell
 cargo install --git https://github.com/moonlight-mod/moonlight-installer.git moonlight-cli
-moonlight-cli install stable
+moonlight-cli install stable # or `moonlight-cli install nightly`
 moonlight-cli patch /path/to/discord/executable
 ```
 
 You can specify a custom moonlight `dist` directory with `moonlight-cli patch -m /path/to/moonlight/dist`.
-
-:::note
-Discord installations from Linux package managers may not work well with moonlight (due to root permissions or immutability). It is suggested to install Discord locally into a path like `~/.local/share`.
-
-A script to install Discord locally (maintained by a community member) is available [here](https://gist.github.com/maddymeows/6af1a5d5a870c13b7b159c4463edee70). You will need to patch this Discord installation manually after installing it.
-:::
 
 ## Manual installations
 
@@ -94,14 +121,6 @@ moonlight optionally runs in the browser. To use it, [build moonlight](/dev/setu
 The output extension will be at `dist/browser`. Chrome users can check "Developer mode" and click "Load unpacked" in `chrome://extensions`, and Firefox users can click "Load Temporary Add-on" in `about:debugging`.
 
 Browser support is experimental and may be unreliable. Developing extensions or using custom repositories is not supported with the browser extension.
-
-## rocketship
-
-Linux users can install a custom Discord build with [rocketship](https://github.com/moonlight-mod/rocketship) and then install moonlight into it. Enable the rocketship extension after installation.
-
-:::caution
-rocketship is experimental and may break. If you don't care about the benefits of rocketship, use [moonlight-cli](#moonlight-cli) instead.
-:::
 
 ## Nix
 
