@@ -15,6 +15,8 @@ In some branches of Discord, the following is required in the `settings.json` fi
 "DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOURE_DOING": true
 ```
 
+This can be located in `%AppData%/Discord` on Windows and `~/.config/discord` on Linux.
+
 ## Reading module sources
 
 See the [helpful extensions](/ext-dev/helpful-exts) page first for `patchAll` and how to use Spacepack.

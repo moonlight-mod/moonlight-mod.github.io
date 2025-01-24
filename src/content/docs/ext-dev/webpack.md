@@ -5,11 +5,15 @@ sidebar:
   order: 6
 ---
 
-[Webpack](https://webpack.js.org) is a library used by Discord to turn their codebase into a bundled JavaScript file. Code gets converted into Webpack "modules", which are individual functions that can require and load each other. You can think of them as individual files, each with their own code and exports, but converted into single functions inside of the client.
+[Webpack](https://webpack.js.org) is a library used by Discord to turn their codebase into a bundled JavaScript file. Code gets converted into Webpack "modules", which are individual functions that can require and load each other. You can think of them as individual files, each with their own code and exports, but converted into single functions inside of the client. Each module is [minified](https://en.wikipedia.org/wiki/Minification_(programming)), which means that its source has no whitespace and variable names are often short.
+
+moonlight functions off of text-based matching with strings or regexes against the minified source code of the Webpack modules. This is much faster than looking through every Webpack module's exports, and offers a lot of flexibility to find modules simply by looking for patterns that represent the code itself.
+
+Extensions can combine patching existing Webpack modules, inserting their own Webpack modules, and using existing Webpack modules together to offer a lot of flexibility and power. Almost anything in the client can be modified, reused, or extended.
 
 ## Patching
 
-Patching is the process of altering the code of Webpack modules. Each module is [minified](https://en.wikipedia.org/wiki/Minification_(programming)), which means that its source has no whitespace and variable names are often short. Patching allows extensions to find and replace snippets of minified code.
+Patching is the process of altering the code of Webpack modules. It allows extensions to find and replace snippets of minified code. You can use patches to change behavior in existing Webpack modules.
 
 To create a patch, export them from your extension's web entrypoint:
 
@@ -182,6 +186,8 @@ Never hardcode a numeric Webpack module ID, as they will change.
 
 ## Importing other Webpack modules
 
+Extensions and [the mappings repository](/ext-dev/mappings) offer many Webpack modules to use as libraries in your code.
+
 You can import other Webpack modules by prefixing the ID with `@moonlight-mod/wp`:
 
 ```ts
@@ -207,17 +213,16 @@ const AppPanels = require("appPanels_appPanels").default;
 
 ## Importing Discord's Webpack modules
 
-There are two ways to import a Webpack module from Discord:
+Sometimes, you need to import a module that isn't mapped yet. You can use [Spacepack](/ext-dev/helpful-exts#spacepack) to find a module yourself. The most common API is `spacepack.findByCode` to find a module based on a unique string in its source code. You can combine this with other functions (like `spacepack.findObjectByKey` and friends) to make your way through the exports if you need.
 
-- Use [mappings](/ext-dev/mappings) to import a known module
-- Use [Spacepack](/ext-dev/helpful-exts#spacepack) to find a module yourself
+After locating a module, you can access its exports and use it like normal. Common uses of exports include using React components, calling functions, accessing Flux stores, and more.
 
-Remember to [add the module as a dependency](#webpack-module-dependencies).
+Remember to [add the module as a dependency](#webpack-module-dependencies), which will wait to load your Webpack module until the find is matched. The module must be loaded when you attempt to look for it using `findByCode`!
 
 ## Common patterns
 
 You will see familiar things when [reading Discord Webpack modules](/ext-dev/devtools#reading-module-sources):
 
-- The pattern `n(/* some number */)` represents a require, and is another module ID inside of the argument. You can pass that module ID to `spacepack.inspect` to read the required module source.
-- `Z` and `ZP` usually correspond to `default` exports.
+- The pattern `n(/* some number */)` represents a require, and is another module ID inside of the argument. You can pass that module ID to `spacepack.inspect` to read the required module source [in DevTools](/ext-dev/devtools).
+- `Z` and `ZP` usually correspond to `default` exports. Despite being minified, these export names are stable.
 - Mentions of `jsx` and `createElement` imply construction of React components.

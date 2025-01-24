@@ -5,7 +5,7 @@ sidebar:
   order: 8
 ---
 
-moonlight uses [mappings](https://github.com/moonlight-mod/mappings) that automatically rename Webpack modules for you.
+moonlight uses [mappings](https://github.com/moonlight-mod/mappings) that automatically rename Webpack modules for you. You can import these modules into your extensions and use them, with a consistent module ID and unminified exports. It is suggested to look around the source of the mappings repository for a list of mapped modules.
 
 :::caution
 There are currently some issues with import types being wrong with ESM Webpack modules. If an import errors, try importing in a different way:
