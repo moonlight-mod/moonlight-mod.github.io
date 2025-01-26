@@ -56,6 +56,23 @@
           },
           "type": "array"
         },
+        "csp": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "description": "A mapping from CSP directives to URLs to allow.",
+          "examples": [
+            {
+              "script-src": [
+                "https://example.com"
+              ]
+            }
+          ],
+          "type": "object"
+        },
         "dependencies": {
           "description": "A list of extension IDs that are required for the extension to load.",
           "items": {
