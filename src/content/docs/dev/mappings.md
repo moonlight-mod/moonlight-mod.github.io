@@ -54,15 +54,20 @@ type Exports = {
 export default Exports;
 ```
 
-When adding a new module, or adding types to an existing module:
+When adding a new module:
+
+- `node generate.js imports --write` to write the new `src/modules.ts`
+
+When adding types to a module:
 
 - Add its path and a name to `generate.js`
   - Name should be the last part of the path except in cases where it breaks syntax (e.g. `highlight.js` -> `HighlightJS`)
   - Mappings for CSS class names should replace `.css` with `CSS`
 - `node generate.js types --write` to generate the new type index
-- Format with Prettier
 - `node generate.js declares "@moonlight-mod/wp/" > ../moonlight/packages/types/src/mappings.d.ts` to update import statements in moonlight
   - You don't have to do this unless you're a moonlight core developer
+
+Remember to format with Prettier!
 
 ## Finding names
 
