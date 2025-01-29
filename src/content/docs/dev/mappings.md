@@ -54,7 +54,7 @@ type Exports = {
 export default Exports;
 ```
 
-When adding new types to a mapping:
+When adding a new module, or adding types to an existing module:
 
 - Add its path and a name to `generate.js`
   - Name should be the last part of the path except in cases where it breaks syntax (e.g. `highlight.js` -> `HighlightJS`)
