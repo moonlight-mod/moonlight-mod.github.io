@@ -45,7 +45,16 @@ register((moonmap) => {
 });
 ```
 
-If you're creating a type for the module (you should!), export the type as the default export. When adding new types to a mapping:
+If you're creating a type for the module (you should!), export a type named `Exports` as the default export. The name is required!
+
+```ts
+type Exports = {
+  /* ... */
+};
+export default Exports;
+```
+
+When adding new types to a mapping:
 
 - Add its path and a name to `generate.js`
   - Name should be the last part of the path except in cases where it breaks syntax (e.g. `highlight.js` -> `HighlightJS`)

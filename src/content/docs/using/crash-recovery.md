@@ -24,7 +24,7 @@ moonlight itself can be updated from a number of ways:
 - The Discord crash screen
 - The moonlight installer (or however you installed moonlight)
 
-Extensions can be updated from Moonbase. If you cannot access it, moonbase will attempt to let you update extensions from the crash screen itself.
+Extensions can be updated from Moonbase. If you cannot access it, Moonbase will attempt to let you update extensions from the crash screen itself.
 
 ## Reset your config
 
