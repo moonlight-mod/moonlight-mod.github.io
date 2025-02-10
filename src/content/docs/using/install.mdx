@@ -124,4 +124,65 @@ Browser support is experimental and may be unreliable. Developing extensions or 
 
 ## Nix
 
-moonlight offers [a Nix flake](https://github.com/moonlight-mod/moonlight/blob/main/flake.nix) which has an overlay to install moonlight on top of Discord. The flake is not monitored, so if it fails to build, please leave an issue.
+moonlight offers a [nixpkgs](https://search.nixos.org/packages?show=moonlight) package and a [flake](https://github.com/moonlight-mod/moonlight/blob/main/flake.nix), which has the option to use nightly if the `develop` branch is selected and provides declarative home-manager configuration options.
+
+Please leave an issue on the [nixpkgs](https://github.com/nixos/nixpkgs/issues) or [moonlight](https://github.com/moonlight-mod/moonlight/issues) repository depending on which one you are using in case of a build failure.
+
+### Nixpkgs (recommended)
+
+User-level installation:
+
+```nix title="configuration.nix"
+users.users.alice.packages = [
+  (pkgs.discord.override { withMoonlight = true; })
+];
+```
+
+System-wide installation:
+
+```nix title="configuration.nix"
+environment.systemPackages = [
+  (pkgs.discord.override { withMoonlight = true; })
+];
+```
+
+### Flake
+
+```nix title="flake.nix"
+{
+  inputs.moonlight = {
+    url = "github:moonlight-mod/moonlight"; # Add `/develop` to the flake URL to use nightly.
+    inputs.nixpkgs.follows = "nixpkgs";
+  }
+}
+```
+
+:::note
+It's a Nix to JSON converter. It is best to do it imperatively and then look at the `~/.config/moonlight-mod/stable,ptb,canary,development.json`
+:::
+```nix title="home.nix"
+{ inputs, ... }:
+{
+  imports = [
+    inputs.moonlight.homeModules.default
+  ];
+
+  programs.moonlight-mod = {
+    enable = true;
+    stable = {
+      extensions = {
+        allActivites.enabled = true;
+        alwaysFocus.enabled = true;
+
+        betterEmbedsYT = {
+          enabled = true;
+          config = {
+            fullDescription = false;
+            expandDescription = true;
+          };
+        };
+      };
+    };
+  };
+}
+```
