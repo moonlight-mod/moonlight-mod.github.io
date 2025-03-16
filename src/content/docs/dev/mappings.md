@@ -2,7 +2,7 @@
 title: Contributing to mappings
 description: How to register your own mappings and contribute upstream
 sidebar:
-  order: 4
+  order: 5
 ---
 
 [The mappings repository](https://github.com/moonlight-mod/mappings) contains a collection of known Webpack modules with human-readable names. It finds Webpack modules and creates an alias to them, as well as remapping exports.

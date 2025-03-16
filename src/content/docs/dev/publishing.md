@@ -1,7 +1,7 @@
 ---
 title: Publishing a new release
 sidebar:
-  order: 3
+  order: 4
 ---
 
 :::note
