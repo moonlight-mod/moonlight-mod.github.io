@@ -1,9 +1,8 @@
 ---
-import type { Props } from "@astrojs/starlight/props";
 import { LinkButton } from "@astrojs/starlight/components";
 import { Image } from "astro:assets";
 
-const hero = Astro.props.entry.data.hero;
+const hero = Astro.locals.starlightRoute.entry.data.hero;
 const actions = hero?.actions || [];
 const image = hero?.image;
 
