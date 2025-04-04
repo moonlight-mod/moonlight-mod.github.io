@@ -8,7 +8,7 @@ moonlight's project structure can be overwhelming to learn for new contributors.
 
 ## Package manager
 
-moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces), with multiple packages inside of it. The minimum version required is pnpm 9, but [we plan to upgrade](https://github.com/moonlight-mod/moonlight/issues/223) in the future.
+moonlight is split into a [pnpm workspace](https://pnpm.io/workspaces), with multiple packages inside of it. The minimum version required is pnpm 10.
 
 Each package contains a `package.json` and a `tsconfig.json`. Most packages will simply reference the `tsconfig.json` at the root of the project, but packages like [`types`](#types) need their own independent copy.
 
@@ -141,8 +141,6 @@ After processing the extensions, it calls the `window._moonlightWebLoad` functio
 ## Other dependencies
 
 moonlight uses some other packages that are not in the workspace, like [LunAST](https://github.com/moonlight-mod/lunast), [moonmap](https://github.com/moonlight-mod/moonmap), and [mappings](https://github.com/moonlight-mod/mappings). These packages do *not* use esbuild, and instead use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html), because they do not need any special config and are published on npm.
-
-These dependencies are declared multiple times for each project that uses them. In the future, we will switch to using [pnpm catalogs](https://pnpm.io/catalogs) to make it easier to maintain.
 
 Sometimes, you may need to modify one of these libraries, and test them in a local copy of moonlight. This is a known pain point of working with moonlight, and there are several ways to accomplish this:
 

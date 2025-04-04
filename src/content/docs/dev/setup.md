@@ -6,7 +6,7 @@ sidebar:
 ---
 
 
-You will need [pnpm](https://pnpm.io), as moonlight uses it for dependency and workspace management.
+You will need [pnpm](https://pnpm.io) 10, as moonlight uses it for dependency and workspace management.
 
 - Clone the repository.
 - Install dependencies with `pnpm i`.
