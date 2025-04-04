@@ -144,7 +144,7 @@ moonlight uses some other packages that are not in the workspace, like [LunAST](
 
 Sometimes, you may need to modify one of these libraries, and test them in a local copy of moonlight. This is a known pain point of working with moonlight, and there are several ways to accomplish this:
 
-- Use [pnpm link](https://pnpm.io/cli/link) or [the link script](/dev/helper-scripts#linkjs). Several developers have reported weird desyncs after linking packages, so exercise caution when using these.
+- Use [pnpm link](https://pnpm.io/cli/link) or [the link script](/dev/helper-scripts#linkmjs). Several developers have reported weird desyncs after linking packages, so exercise caution when using these.
 - Edit the `package.json` of the desired package(s) to use the `file:` protocol.
 
 Remember to undo your changes when you're done linking the other library, and make sure that `pnpm-lock.yaml` hasn't been changed by your testing.
