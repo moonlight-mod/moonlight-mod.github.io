@@ -39,9 +39,9 @@ Register slash commands and perform text manipulation.
 
 ### Common
 
-Provides re-exports of Flux stores, and a custom error boundary component.
+Provides a custom error boundary component, utility for creating icons, and re-exports of Flux stores.
 
-- Module IDs: `common_stores`, `common_ErrorBoundary`
+- Module IDs: `common_ErrorBoundary`, `common_icons`, `common_stores`
 - Types: [here](https://github.com/moonlight-mod/moonlight/blob/main/packages/types/src/coreExtensions/common.ts)
 
 ### Component Editor
