@@ -4,9 +4,9 @@ description: How to install, build, and use moonlight
 sidebar:
   order: 1
 ---
-import { FileTree, LinkButton, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
+import { FileTree, LinkCard, LinkButton, Tabs, TabItem, Aside } from "@astrojs/starlight/components";
 
-There are several ways to install moonlight. It is suggested to use the installer or CLI if you are not a developer.
+There are several ways to install moonlight, depending on where you use Discord.
 
 :::caution
 moonlight (and other client mods) are against the Discord terms of service. **Client mods are a risk** - if this makes you uncomfortable, don't install them.
@@ -15,6 +15,10 @@ Despite that, we try our best to ensure your account and system is safe. There a
 :::
 
 ## moonlight installer
+
+:::note
+The moonlight installer is the preferred way to install moonlight.
+:::
 
 The moonlight [installer](https://github.com/moonlight-mod/moonlight-installer) automates the installation process for you. To use it, [download](https://github.com/moonlight-mod/moonlight-installer/releases/latest) and run the installer, download moonlight through it, and then patch a Discord installation.
 
@@ -55,10 +59,15 @@ Discord installations are autodetected on your machine. Keep the installer in th
   </TabItem>
 </Tabs>
 
+After you've installed moonlight, read about how to use moonlight:
+
+<LinkCard title="Getting started" href="/using/getting-started" description="How to use moonlight" />
+<LinkCard title="Recovering from crashes" href="/using/crash-recovery" description="How to fix your client if it crashes on startup" />
+<LinkCard title="Communication channels" href="/using/communications" description="Where to get help, and where to find announcements" />
 
 ## moonlight-cli
 
-A [command line installer](https://github.com/moonlight-mod/moonlight-installer/tree/main/crates/moonlight-cli) can be compiled from source manually and used to patch moonlight.
+A [command line installer](https://github.com/moonlight-mod/moonlight-installer/tree/main/crates/moonlight-cli) can be used to update and patch moonlight. Install [Rust](https://www.rust-lang.org/), then build the CLI from source:
 
 ```shell
 cargo install --git https://github.com/moonlight-mod/moonlight-installer.git moonlight-cli
@@ -103,32 +112,28 @@ You should have the following structure:
     - package.json
 </FileTree>
 
-After first launch, moonlight will create a config directory in the Electron `appData` path named `moonlight-mod`:
-
-- Windows: `%AppData%/moonlight-mod`
-- macOS: `~/Library/Application Support/moonlight-mod`
-- Linux: `~/.config/moonlight-mod`
-
-Each Discord branch has its own `.json` file for configuration.
-
 ## Browser
 
-moonlight optionally runs in the browser. To use it, [build moonlight](/dev/setup), and then build the browser extension:
+moonlight can be installed as a browser extension. To use it, [manually build moonlight](/dev/setup), and then build the browser extension:
 
 - Manifest v3 (Chrome): `pnpm run browser`
 - Manifest v2 (Firefox): `pnpm run browser-mv2`
 
 The output extension will be at `dist/browser`. Chrome users can check "Developer mode" and click "Load unpacked" in `chrome://extensions`, and Firefox users can click "Load Temporary Add-on" in `about:debugging`.
 
+:::caution
 Browser support is experimental and may be unreliable. Developing extensions or using custom repositories is not supported with the browser extension.
+:::
 
 ## Nix
 
-moonlight offers a [nixpkgs](https://search.nixos.org/packages?show=moonlight) package and a [flake](https://github.com/moonlight-mod/moonlight/blob/main/flake.nix), which has the option to use nightly if the `develop` branch is selected and provides declarative home-manager configuration options.
+moonlight offers a [nixpkgs](https://search.nixos.org/packages?show=moonlight) package and a [flake](https://github.com/moonlight-mod/moonlight/blob/main/flake.nix). It is suggested to use the nixpkgs package, but the flake lets you [pick moonlight branches](/using/getting-started#moonlight-branches) and provides optional home-manager integration.
 
-Please leave an issue on the [nixpkgs](https://github.com/nixos/nixpkgs/issues) or [moonlight](https://github.com/moonlight-mod/moonlight/issues) repository depending on which one you are using in case of a build failure.
+:::caution
+Nix packages are not tested often. Please leave an issue on the [nixpkgs](https://github.com/nixos/nixpkgs/issues) or [moonlight](https://github.com/moonlight-mod/moonlight/issues) repository (depending on which one you are using) in case of a build failure.
+:::
 
-### Nixpkgs (recommended)
+### nixpkgs
 
 User-level installation:
 
@@ -146,7 +151,7 @@ environment.systemPackages = [
 ];
 ```
 
-### Flake
+### flake
 
 ```nix title="flake.nix"
 {
@@ -157,9 +162,8 @@ environment.systemPackages = [
 }
 ```
 
-:::note
-It's a Nix to JSON converter. It is best to do it imperatively and then look at the `~/.config/moonlight-mod/stable,ptb,canary,development.json`
-:::
+If you use home-manager, you can import moonlight's module, and copy [your existing moonlight config](/using/getting-started#editing-moonlights-config) into your configuration:
+
 ```nix title="home.nix"
 { inputs, ... }:
 {

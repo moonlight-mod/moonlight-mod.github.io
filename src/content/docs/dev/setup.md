@@ -5,12 +5,11 @@ sidebar:
   order: 1
 ---
 
+moonlight requires [Node.js](https://nodejs.org) 22 and [pnpm](https://pnpm.io) 10.
 
-You will need [pnpm](https://pnpm.io) 10, as moonlight uses it for dependency and workspace management.
-
-- Clone the repository.
-- Install dependencies with `pnpm i`.
-- Build the project with `pnpm run build`.
+- Clone the repository: `git clone https://github.com/moonlight-mod/moonlight.git`
+- Install dependencies: `pnpm install`.
+- Build the project: `pnpm run build`.
   - For working on moonlight, a watch mode is available with `pnpm run dev`.
 
 For more information on project structure, [see the dedicated page](/dev/project-structure).
@@ -18,7 +17,7 @@ For more information on project structure, [see the dedicated page](/dev/project
 ## Contribution guidelines
 
 - Ensure your commits pass Prettier/ESLint. This is a requirement for merge.
-  - moonlight uses [husky](https://typicode.github.io/husky/) to check lints on commit.
+  - moonlight uses [husky](https://typicode.github.io/husky) to check lints on commit. This should have automatically been setup for you when running `pnpm install`.
 - Please make PRs to the `develop` branch instead of `main`.
   - `develop` is merged into `main` when moonlight updates happen. Our in-progress work resides on `develop`.
 - Don't break the existing API surface.

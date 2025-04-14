@@ -7,7 +7,7 @@ sidebar:
 
 ## Config options
 
-These aren't extensions, but rather options in the moonlight config:
+These aren't extensions, but rather options in the moonlight config. These can be edited in the "Config" tab of Moonbase, or by [manually editing the config file](/using/getting-started#editing-moonlights-config).
 
 - `devSearchPaths`: An array of directories to recursively search for built extensions (`manifest.json`).
   - When developing extensions, use the `dist` folder instead of the root folder. This is because the `manifest.json` resides in the root of the source code, but does not have the built files, which wastes time resolving files that will never exist.

@@ -109,6 +109,16 @@ It is suggested to follow some guidelines when writing patches:
 - Use capture groups (e.g. `(.)`) to use previous variable names and snippets of code in your patches.
 - Keep logic inside of the patch to a minimum, and instead use `require` to [load your own Webpack module](#webpack-module-insertion).
 
+### Patching with ASTs
+
+moonlight features experimental AST-based patching through the [LunAST](https://github.com/moonlight-mod/lunast) library.
+
+You can register a patcher from the `moonlight.lunast` global in your extension's `index.ts`. See the LunAST README for more information, or see [here](/blog/moonlight-api-v2#lunast-ast-based-mapping-and-patching) for an example patch.
+
+:::caution
+AST-based patching is very experimental. AST-based patching is much slower than regex-based patching, and it may break other patches or Webpack module finds.
+:::
+
 ## Webpack module insertion
 
 Similar to patching, extensions can also insert their own Webpack modules. These can be required like normal modules (which means they can be used inside of patches and other extensions). Extension Webpack modules take the form of `${ext.id}_${webpackModule.name}` (e.g. the `stores` Webpack module in the `common` extension has the ID `common_stores`).
@@ -166,7 +176,7 @@ declare module "@moonlight-mod/wp/sampleExtension_someLibrary" {
 When using `export default` or `export something` in a ESM Webpack module, you will need to do `require().default` or `require().something` to access it. You can also use `module.exports` from inside of the Webpack module, but it is not recommended.
 :::
 
-## Webpack module dependencies
+### Webpack module dependencies
 
 As seen above, extension Webpack modules must specify their dependencies. They will not be inserted until these dependencies have been loaded.
 
@@ -184,7 +194,7 @@ You can specify:
 Never hardcode a numeric Webpack module ID, as they will change.
 :::
 
-## Importing other Webpack modules
+### Importing other Webpack modules
 
 Extensions and [the mappings repository](/ext-dev/mappings) offer many Webpack modules to use as libraries in your code.
 
@@ -211,18 +221,10 @@ const webpackRequire = require as unknown as WebpackRequireType;
 const AppPanels = require("appPanels_appPanels").default;
 ```
 
-## Importing Discord's Webpack modules
+### Importing Discord's Webpack modules
 
 Sometimes, you need to import a module that isn't mapped yet. You can use [Spacepack](/ext-dev/helpful-exts#spacepack) to find a module yourself. The most common API is `spacepack.findByCode` to find a module based on a unique string in its source code. You can combine this with other functions (like `spacepack.findObjectByKey` and friends) to make your way through the exports if you need.
 
 After locating a module, you can access its exports and use it like normal. Common uses of exports include using React components, calling functions, accessing Flux stores, and more.
 
 Remember to [add the module as a dependency](#webpack-module-dependencies), which will wait to load your Webpack module until the find is matched. The module must be loaded when you attempt to look for it using `findByCode`!
-
-## Common patterns
-
-You will see familiar things when [reading Discord Webpack modules](/ext-dev/devtools#reading-module-sources):
-
-- The pattern `n(/* some number */)` represents a require, and is another module ID inside of the argument. You can pass that module ID to `spacepack.inspect` to read the required module source [in DevTools](/ext-dev/devtools).
-- `Z` and `ZP` usually correspond to `default` exports. Despite being minified, these export names are stable.
-- Mentions of `jsx` and `createElement` imply construction of React components.

@@ -9,7 +9,7 @@ When a moonlight API level increases, all extensions with a different API level 
 
 As with every update to moonlight, the following apply:
 
-- The types package must be updated: `pnpm add @moonlight-mod/types@latest`
+- The types package must be updated: `pnpm update @moonlight-mod/types`
 - The `version` field in your manifest must be updated.
 - The `apiLevel` field in your manifest must be set to the latest API level.
 - If your extension is on [the official repository](/ext-dev/official-repository), it must be resubmitted and reviewed.

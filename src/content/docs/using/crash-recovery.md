@@ -2,7 +2,7 @@
 title: Recovering from crashes
 description: How to fix your client if it crashes on startup
 sidebar:
-  order: 2
+  order: 3
 ---
 
 When Discord updates, there is a chance for moonlight (or the extensions you use) to break. In the event your Discord client is broken, follow these steps to recover it.
@@ -14,6 +14,23 @@ In order for us to fix a bug, we need to know about it first! Bugs with moonligh
 :::note
 Please check if the issue has already been reported beforehand. Reporting the same issue multiple times quickly overwhelms our ability to provide support.
 :::
+
+### Finding Discord's logs
+
+When troubleshooting issues with moonlight, you may be asked to provide Discord's logs by a moonlight core developer.
+
+:::caution
+These logs contain a lot of information that may be sensitive to you (e.g. your computer username or the IDs of channels you recently visited). We suggest privately DMing these logs instead of posting them in a public channel.
+:::
+
+These logs are present in Discord's config folder:
+
+- Windows: `%AppData%/discord`
+- Linux: `~/.config/discord`
+
+The folder name changes depending on your Discord branch (e.g. `discordptb` or `discordcanary`).
+
+Discord's logs will be present in the `logs` folder. You should send `renderer_js.log`, as the other log files are usually unrelated.
 
 ## Update moonlight
 
@@ -30,8 +47,10 @@ Extensions can be updated from Moonbase. If you cannot access it, Moonbase will 
 
 You can reset your moonlight configuration through the moonlight installer or the Discord tray icon. Clicking it will backup and reset your config. When you restart Discord, your client will act like you installed moonlight for the first time, with all extensions disabled and all settings reset.
 
-You can also edit the config file manually, if you wish. See [the manual installation instructions](/using/install#manual-installations) for the config path.
+You can also [edit the config file manually](/using/getting-started#editing-moonlights-config) if you wish.
 
 ## Unpatch moonlight
 
 If all else fails, you can unpatch moonlight from the moonlight installer (or however you installed moonlight), and wait for an update to moonlight. We try and fix things as soon as possible, but please remember we are a team of volunteers building software in our free time.
+
+Keep an eye out for any status updates on [our communication channels](/using/communications).

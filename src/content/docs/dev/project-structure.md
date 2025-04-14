@@ -50,9 +50,7 @@ The types package is published alongside moonlight releases, but some moonlight 
 
 ## Core extensions
 
-Core extensions are extensions built into moonlight. They cannot be uninstalled, but they can be disabled. A few core extensions are enabled by default when the config is created for the first time. An extension is a good fit for a core extension if it's a library or development tool, but actual features or tweaks should usually be distributed on a extension repository instead. This isn't a hard rule, though, so feel free to ask if you're considering making a core extension!
-
-The biggest core extension is [Moonbase](https://github.com/moonlight-mod/moonlight/tree/main/packages/core-extensions/src/moonbase), which is responsible for installing and updating extensions, updating moonlight itself, and providing a UI to manage everything. Unlike other client mods, Moonbase is just implemented as another extension, and can be disabled if the user wants. The core does not contain any functionality for installing/updating extensions or updating moonlight, and it is instead implemented inside of Moonbase.
+Core extensions are extensions built into moonlight. This section has moved into its own dedicated page, which you can see [here](/dev/core-extensions).
 
 ## Load stages
 
