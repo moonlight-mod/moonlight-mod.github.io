@@ -268,22 +268,20 @@ The `@moonlight-mod/wp` prefix is a special declaration for `import` statements.
 Some of Discord's Webpack modules are available under unique names with [the mappings system](/ext-dev/mappings). We encourage you to use the mappings system when possible.
 :::
 
-Sometimes, you need to import a module that isn't mapped yet. To accomplish this, you can use [Spacepack](/ext-dev/api#spacepack) to find a module yourself. This is a library that you must [depend on and import yourself](#using-your-webpack-module).
+Sometimes, you need to import a module that isn't mapped yet. To accomplish this, you can use [Spacepack](/ext-dev/api#spacepack) to find a module yourself. Remember to add Spacepack as a dependency to your [extension](/ext-dev/manifest#dependencies) and [module](#webpack-module-dependencies).
 
-The most common API is `spacepack.findByCode` to find a module based on a unique string in its source code:
+The most common API is `spacepack.findByCode`, which find module(s) based on a unique string in its source code:
 
 ```ts
 const moduleExports = spacepack.findByCode(/* finds to look for */)[0].exports;
 ```
 
-Pass finds as arguments to this function. These finds function similarly to [patching](#patching).
+Pass finds as arguments to this function. These finds function similarly to [patching](#patching), so it can accept strings and regexes.
 
-You can combine this with other functions (like `spacepack.findObjectByKey` and friends) to make your way through a module's exports if necessary.
-
-After locating a module, you can access its exports and use it like normal. Common uses of exports include using React components, calling functions, accessing Flux stores, and more.
+You can combine the results with other functions (like `spacepack.findObjectByKey` and friends) to make your way through a module's exports if necessary. Most code will access the first result in the array (`[0]`) and then use the module's exports (`.exports`). After locating a module, you can access its exports and use it like normal. Common uses of exports include using React components, calling functions, accessing Flux stores, and more.
 
 :::caution
-Remember to [add the module as a dependency](#webpack-module-dependencies), which will wait to load your Webpack module until the find is matched. The module must be loaded when you attempt to look for it using `findByCode`!
+Remember to [add the module you require as a dependency](#webpack-module-dependencies), which will wait to load your Webpack module until the find is matched. The module must be loaded when you attempt to look for it using `findByCode`!
 :::
 
 ## Discord module stability
