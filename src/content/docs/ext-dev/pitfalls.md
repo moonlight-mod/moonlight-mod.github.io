@@ -7,21 +7,23 @@ sidebar:
 
 ## Web vs Node.js
 
-Node.js code cannot be imported directly from the web side. You must use `moonlight.getNatives`. See [the cookbook](/ext-dev/cookbook#sharing-code-between-nodejs-and-the-web) for how to access Node.js exports.
+Node.js code cannot be imported directly from the web environment. To share code between the two environments, use `moonlight.getNatives`. See [the cookbook](/ext-dev/cookbook#extension-entrypoints) for more information.
 
 ## Webpack require is not Node.js require
 
-The `require` function used in Webpack modules and patches is not the same as the function in Node.js. Instead, it lets you require other Webpack modules by their IDs.
-
-If you have a Webpack module you want to load, [you can require it by its ID](/ext-dev/webpack#importing-other-webpack-modules).
+The `require` function used in Webpack modules and patches is not the same as the function in Node.js. Instead, it's specific to Webpack, and only works inside of Webpack modules. See [here](/ext-dev/webpack#importing-other-webpack-modules) for more information.
 
 ## The web entrypoint is not a Webpack module
 
-You cannot use Webpack modules inside of `index.ts`, because it is loaded before Webpack is initialized. Instead, [create your own Webpack module](/ext-dev/webpack#webpack-module-insertion) and use that.
+You cannot use Webpack modules inside of `index.ts`, because it is loaded before Webpack is initialized. Instead, [create your own Webpack module](/ext-dev/webpack#webpack-module-insertion) and use that instead.
 
 ## Webpack modules only load when required
 
 By default, Webpack modules will not load unless they are required by another module or the `entrypoint` flag is set. If you need a module to run as soon as possible, [set the entrypoint flag](/ext-dev/webpack#webpack-module-insertion).
+
+## Using ESM features
+
+ESM-specific features (like top-level `await`) are not supported in Webpack modules or the Node or Host environments. The `index.ts` file in your extension (and *only* that file) can be compiled to ESM by [modifying your build script](https://github.com/moonlight-mod/esbuild-config/blob/8e91f1db1773380bc140c9ca3e140c30ecf5bcc3/src/factory.ts#L75).
 
 ## Spacepack findByCode matching itself
 
@@ -35,7 +37,7 @@ Note that esbuild will merge string concatenation, so you must be creative!
 
 ## Using JSX
 
-[JSX](https://react.dev/learn/writing-markup-with-jsx) (and its TypeScript version, TSX) is an extension of JavaScript that allows you to write HTML-like syntax in your code. The default configuration of the build script is to convert the JSX to `React.createElement` calls:
+[JSX](https://react.dev/learn/writing-markup-with-jsx) (and its TypeScript version, TSX) is an extension of JavaScript that allows you to write HTML-like syntax in your code. [Webpack modules](/ext-dev/webpack#webpack-module-insertion) with a `.tsx` filename can use JSX directly. The default configuration of the build script is to convert the JSX to `React.createElement` calls:
 
 ```tsx
 const myElement = <span>Hi!</span>;
@@ -50,7 +52,7 @@ import React from "@moonlight-mod/wp/react";
 const myElement = <span>Hi!</span>;
 ```
 
-Remember to add React to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion).
+More information on using React in extensions can be found [here](/ext-dev/cookbook#using-react). Remember to add React to [your module dependencies](/ext-dev/webpack#webpack-module-insertion).
 
 ## Using the wrong moonlight global
 

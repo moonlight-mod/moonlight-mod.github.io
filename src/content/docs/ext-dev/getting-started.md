@@ -5,6 +5,10 @@ sidebar:
   order: 1
 ---
 
+:::note
+This page is for developers who want to make their own extensions. If you're looking for documentation on using moonlight itself, see [here](/using/getting-started).
+:::
+
 ## Requirements
 
 - [Node.js](https://nodejs.org) 22 or later
@@ -86,7 +90,7 @@ Right now, your extension doesn't do much. Let's go over what each file does:
 - In `index.ts`, your extension exports its [patches](/ext-dev/webpack#patching) and [Webpack modules](/ext-dev/webpack#webpack-module-insertion). Make sure to export every patch and Webpack module you create, or else moonlight won't load them.
 - If you open the Discord settings menu, you should see the "User Settings" section has been renamed to "hacked by (your extension ID) lol". This was edited by the patch in `index.ts`, which modifies Discord to insert and replace custom code.
 - In the `webpackModules` folder, there are multiple Webpack modules, which is where most of your extension's code lives. Right now, all they do is log to the console.
-- In `node.ts`, your extension runs [in the Node environment](/ext-dev/cookbook/#extension-entrypoints), where you can access the filesystem or spawn extra processes. Most extensions don't need to use this, though.
+- In `node.ts`, your extension runs [in the Node environment](/ext-dev/cookbook#extension-entrypoints), where you can access the filesystem or spawn extra processes. Most extensions don't need to use this, though.
 - In `env.d.ts` (at the root of the repository), your extension's Webpack module is declared to let you import it directly. Make sure to update this file when you add or remove Webpack modules, but don't delete it entirely.
 
 We suggest keeping these examples around for experimentation, but you should delete what you aren't using before you publish your extension. Most extensions don't use `node.ts`, for example.
@@ -96,7 +100,7 @@ We suggest keeping these examples around for experimentation, but you should del
 Run `pnpm run dev` to enter watch mode. When you make changes to your extension, the extension will automatically be rebuilt, and you can reload your client (`Ctrl+R`) to load the new version of your extension.
 
 :::note
-Watch mode will need to be restarted if you edit the extension manifest, add/remove an entrypoint, or add/remove a Webpack module. If you delete an extension, entrypoint, or Webpack module, you should run `pnpm run clean` to clean up the remaining build output.
+Watch mode will need to be restarted when making certain changes or adding/removing new entrypoints. See [here](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios) for more information.
 :::
 
 Try changing one of the logger messages, or maybe edit the example patch. Play around a bit and see what happens!

@@ -1,6 +1,6 @@
 ---
 title: Helpful extensions
-description: This is a list of helpful extensions that can be used to aid extension development.
+description: Helpful extensions that can be used to aid extension development
 sidebar:
   order: 5
 ---

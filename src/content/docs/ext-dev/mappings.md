@@ -30,10 +30,12 @@ import Dispatcher from "@moonlight-mod/wp/discord/Dispatcher";
 const Dispatcher = require("discord/Dispatcher").default;
 ```
 
-Remember to [add the module as a dependency](/ext-dev/webpack#webpack-module-dependencies) to your Webpack module.
+Remember to [add the module as a dependency](/ext-dev/webpack#webpack-module-dependencies) to your Webpack module. Unlike extension libraries, mappings are built into moonlight, and do not need to be added to your extension's manifest.
 
 ## Mappings stability
 
 The mappings repository only proxies existing Discord modules and exports. As such, if Discord removes a module or export, or a module is not properly remapped, the mapping will fail and your extension may break.
 
-You should structure your code with the expectation that imported modules or exports may randomly fail. Use the [ErrorBoundary](/ext-dev/api#common) component provided by moonlight to safely catch errors in your UI code.
+Exports and types in the mappings repository may change or be removed if Discord removes it from their own source code. In this scenario, moonlight developers are forced to remove the mapping, and we do not have the ability to bring a module back.
+
+See [here](/ext-dev/webpack#discord-module-stability) for more information on module stability.

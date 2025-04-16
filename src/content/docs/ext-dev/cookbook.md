@@ -5,9 +5,36 @@ sidebar:
   order: 3
 ---
 
+## Extension entrypoints
+
+Some extensions need to go beyond the scope of the Discord web application and interact with the native parts of the client. To help with this, extensions can load in one or more environments:
+
+- The "web" environment (the browser where the web app runs): `index.ts` & Webpack modules
+- The "Node" environment (where DiscordNative runs, with access to Node.js APIs): `node.ts`
+- The "host" environment (with little sandboxing and access to Electron APIs): `host.ts`
+
+These map to the renderer, preload script, and main process in Electron terminology. In moonlight internals, the term "browser" is used to refer to the moonlight browser extension, while "web" refers to the web application that runs on the desktop app and browser site.
+
+Most extensions only run in the web environment, where the majority of the Discord client code executes in. However, extensions can run in the other environments for access to extra APIs when needed. Use system APIs as little as possible, and be mindful about [security concerns](https://www.electronjs.org/docs/latest/tutorial/context-isolation#security-considerations).
+
+Extensions can export APIs from the Node environment and import them from the web environment using `moonlight.getNatives`:
+
+```ts title="node.ts"
+export function doSomething() {
+  // insert some Node.js-specific code here
+}
+```
+
+```ts title="webpackModules/something.ts"
+const natives = moonlight.getNatives("your extension ID");
+natives.doSomething();
+```
+
+Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios) after creating `node.ts`, and that [you cannot directly import node.ts](/ext-dev/pitfalls#web-vs-nodejs).
+
 ## Exporting from your extension
 
-On the web target (`index.ts`), you can export patches, Webpack modules, and styles:
+On the web target (`index.ts`), you can export [patches](/ext-dev/webpack#patching), [Webpack modules](/ext-dev/webpack#webpack-module-insertion), and CSS styles:
 
 ```ts
 import type { ExtensionWebExports } from "@moonlight-mod/types";
@@ -17,80 +44,11 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {};
 export const styles: ExtensionWebExports["styles"] = [];
 ```
 
-All exports are optional.
+All exports are optional. If you aren't exporting anything from this file (e.g. your extension works entirely on the Node or host environments), you can delete `index.ts`.
 
-## Extension entrypoints
+## Using React
 
-Extensions can load in three different environments:
-
-- In the browser (the "web" environment where Discord lives): `index.ts` & Webpack modules
-- On the Node.js side, where DiscordNative and such live: `node.ts`
-- On the host, with little sandboxing and access to Electron APIs: `host.ts`
-
-These map to the renderer, preload script, and main process in Electron terminology. The term "browser" is used to refer to the moonlight browser extension, while "web" refers to both the desktop and browser platforms.
-
-Most extensions only need to run code in the browser. Use the Node environment if you need access to system APIs, like the filesystem or creating processes. Use the Host environment if you need to use the Electron API.
-
-Remember that [you cannot directly import Node.js modules](/ext-dev/pitfalls#web-vs-nodejs), and should [share code with `moonlight.getNatives`](#sharing-code-between-nodejs-and-the-web).
-
-## Sharing code between Node.js and the web
-
-Make a `node.ts` file:
-
-```ts title="node.ts"
-module.exports.doSomething = () => {
-  console.log("Doing something...");
-};
-```
-
-Then, use it from your extension:
-
-```ts title="index.ts"
-const natives = moonlight.getNatives("your extension ID");
-// natives will be null if using moonlight in the browser
-natives?.doSomething();
-```
-
-Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios).
-
-## Using another extension as a library
-
-Mark the extension as a dependency of your extension:
-
-```json title="manifest.json"
-{
-  "dependencies": ["markdown"]
-}
-```
-
-Mark the Webpack module as a dependency of your own Webpack module:
-
-```ts title="index.ts"
-export const webpackModules: ExtensionWebExports["webpackModules"] = {
-  someModule: {
-    dependencies: [
-      {
-        ext: "markdown",
-        id: "markdown"
-      }
-    ]
-  }
-};
-```
-
-Then, import the Webpack module:
-
-```ts title="webpackModules/someModule.ts"
-import * as markdown from "@moonlight-mod/wp/markdown_markdown";
-
-markdown.addRule(/* ... */);
-```
-
-Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios).
-
-## Making a custom React component
-
-Mark React as a dependency of your own Webpack module:
+Create a [Webpack module](/ext-dev/webpack#webpack-module-insertion) with a `.tsx` file extension, then mark React as a [module dependency](/ext-dev/webpack#webpack-module-dependencies):
 
 ```ts title="index.ts"
 export const webpackModules: ExtensionWebExports["webpackModules"] = {
@@ -104,7 +62,7 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
 };
 ```
 
-Then, import React from [mappings](/ext-dev/mappings):
+In the module, import React from [mappings](/ext-dev/mappings):
 
 ```tsx title="webpackModules/element.tsx"
 import React from "@moonlight-mod/wp/react";
@@ -114,18 +72,17 @@ export default function MyElement() {
 }
 ```
 
-React [must be imported when using JSX](/ext-dev/pitfalls#using-jsx).
+You can use this React component in a [patch](/ext-dev/webpack#patching) or through an [extension library](/ext-dev/api#app-panels). React must be imported into the scope [when using JSX](/ext-dev/pitfalls#using-jsx).
 
-## Using Spacepack to find code dynamically
+## Using Flux
 
-```ts
-import spacepack from "@moonlight-mod/wp/spacepack_spacepack";
-const { something } = spacepack.findByCode(/* ... */)[0].exports;
-```
+Discord internally maintains a heavily-modified fork of [Flux](https://github.com/facebookarchive/flux). Various state and events in the client are managed with Flux.
 
-Remember to add your find to [your extension dependencies](/ext-dev/webpack#webpack-module-insertion) and [declare Spacepack as a dependency](#using-another-extension-as-a-library).
+### Interacting with Flux events
 
-## Interacting with Flux events
+Flux events contain a type (e.g. `MESSAGE_CREATE`) and their associated data. They function similarly to [the Discord gateway](https://discord.com/developers/docs/events/gateway) (and some gateway events have Flux equivalents), but they are two separate concepts, and there are client-specific Flux events.
+
+To interact with Flux events, mark `discord/Dispatcher` as a [module dependency](/ext-dev/webpack#webpack-module-dependencies), then import it from [mappings](/ext-dev/mappings) in your Webpack module:
 
 ```ts
 import Dispatcher from "@moonlight-mod/wp/discord/Dispatcher";
@@ -138,11 +95,15 @@ Dispatcher.subscribe("MESSAGE_CREATE", (event: any) => {
 // Block all events (don't actually do this)
 Dispatcher.addInterceptor((event) => {
   console.log(event.type);
-  return true;
+  return true; // return `true` to block, `false` to pass through
 });
 ```
 
-## Interacting with Flux stores
+### Interacting with Flux stores
+
+Flux stores contain application state and dispatch/receive events. Most Flux stores use the same central Flux dispatcher (`discord/Dispatcher`).
+
+To interact with Flux stores, use the [Common](/ext-dev/api#common) extension library by adding it as a dependency to your [extension](/ext-dev/manifest#dependencies) and [module](/ext-dev/webpack#webpack-module-dependencies):
 
 ```ts
 import { UserStore } from "@moonlight-mod/wp/common_stores";
@@ -150,9 +111,31 @@ import { UserStore } from "@moonlight-mod/wp/common_stores";
 console.log(UserStore.getCurrentUser());
 ```
 
-## Modifying message content before it is sent
+Flux stores can be used in React components with [the `useStateFromStores` hook](https://github.com/moonlight-mod/mappings/blob/main/src/mappings/discord/packages/flux/useStateFromStores.ts).
 
-Remember to add `commands` to your manifest's dependencies and `{ext: "commands", id: "commands"}` to your Webpack module's dependencies.
+## Using slash commands
+
+Slash commands can be registered with the [Commands](/ext-dev/api#commands) extension library. Remember to add the Commands extension as a [extension](/ext-dev/manifest#dependencies) and [module](/ext-dev/webpack#webpack-module-dependencies) dependency.
+
+```ts
+import Commands from "@moonlight-mod/wp/commands_commands";
+import { InputType, CommandType } from "@moonlight-mod/types/coreExtensions/commands";
+
+Commands.registerCommand({
+  id: "myCoolCommand",
+  description: "(insert witty example description here)",
+  inputType: InputType.BUILT_IN,
+  type: CommandType.CHAT,
+  options: [],
+  execute: () => {
+    // do something here
+  }
+});
+```
+
+### Modifying message content before it is sent
+
+The legacy command system can also be used to replace text in messages before they are sent.
 
 ```ts
 import Commands from "@moonlight-mod/wp/commands_commands";
@@ -164,9 +147,8 @@ Commands.registerLegacyCommand("unique-id", {
   // something based on a specific string.
   match: /.*/,
   action: (content, context) => {
-    // Modify the content
-
-    return {content};
+    // modify the content here
+    return { content };
   }
 })
 ```

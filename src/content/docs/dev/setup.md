@@ -10,7 +10,7 @@ moonlight requires [Node.js](https://nodejs.org) 22 and [pnpm](https://pnpm.io) 
 - Clone the repository: `git clone https://github.com/moonlight-mod/moonlight.git`
 - Install dependencies: `pnpm install`.
 - Build the project: `pnpm run build`.
-  - For working on moonlight, a watch mode is available with `pnpm run dev`.
+  - For working on moonlight, a watch mode is available with `pnpm run dev`. Remember that you must [restart the command in some scenarios](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios).
 
 For more information on project structure, [see the dedicated page](/dev/project-structure).
 

@@ -54,6 +54,20 @@ This is an example manifest, with every value filled in:
 }
 ```
 
+## Dependencies
+
+Some extensions depend on other extensions to function, like using an extension as a library. Your extension should always declare the extensions it depends on in its manifest:
+
+```json title="manifest.json"
+{
+  "dependencies": ["markdown"]
+}
+```
+
+Additionally, when using Webpack modules from other extensions, you must [declare a dependency for your module](/ext-dev/webpack#webpack-module-dependencies) too.
+
+moonlight will implicitly enable the extensions that your extension depends on. For extensions that aren't locally present (e.g. libraries present on an extension repository), Moonbase will prompt the user to install the required dependencies.
+
 ## Settings
 
 There are many settings types that you can use to configure your extension in Moonbase. The types for these are available [here](https://github.com/moonlight-mod/moonlight/blob/main/packages/types/src/config.ts).

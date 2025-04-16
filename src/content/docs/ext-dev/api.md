@@ -21,7 +21,11 @@ The global types are available [here](https://github.com/moonlight-mod/moonlight
 
 ## Extension libraries
 
-These libraries are built into moonlight as [core extensions](/dev/core-extensions). Remember to [add the extension dependency](/ext-dev/cookbook#using-another-extension-as-a-library) and [add the module dependency](/ext-dev/webpack#webpack-module-dependencies) before using these libraries.
+These libraries are built into moonlight as [core extensions](/dev/core-extensions). See [here](/ext-dev/webpack#importing-other-webpack-modules) for an example on using them.
+
+:::caution
+Remember to add the modules you use as a dependency for your [extension](/ext-dev/manifest/#dependencies) and [module](/ext-dev/webpack#webpack-module-dependencies).
+:::
 
 ### App Panels
 
