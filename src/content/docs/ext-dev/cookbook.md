@@ -133,6 +133,57 @@ Commands.registerCommand({
 });
 ```
 
+### Adding options to a slash command
+
+Specify the option in the `options` array, then use a [type predicate](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) to get the value with the correct type:
+
+```ts
+import Commands from "@moonlight-mod/wp/commands_commands";
+import { CommandType, InputType, OptionType, StringCommandOption } from "@moonlight-mod/types/coreExtensions/commands";
+
+const logger = moonlight.getLogger("your extension");
+
+Commands.registerCommand({
+  type: CommandType.CHAT,
+  inputType: InputType.BUILT_IN,
+  id: "print",
+  description: "Print a message to the logger",
+  options: [
+    {
+      name: "text",
+      description: "What to print",
+      type: OptionType.STRING
+    }
+  ],
+  execute: (options) => {
+    const textOption = options.find((o): o is StringCommandOption => o.name === "text")!;
+    logger.info(textOption.value);
+  }
+});
+```
+
+### Sending a message with a slash command
+
+Use `InputType.BUILT_IN_TEXT` to send the command in chat, then return an object with `content` to override the message:
+
+```ts
+import Commands from "@moonlight-mod/wp/commands_commands";
+import { CommandType, InputType } from "@moonlight-mod/types/coreExtensions/commands";
+
+Commands.registerCommand({
+  type: CommandType.CHAT,
+  inputType: InputType.BUILT_IN_TEXT,
+  id: "colonThree",
+  description: "Post :3 in chat",
+  options: [],
+  execute: () => {
+    return { content: ":3" };
+  }
+});
+```
+
+Note that this sends an actual message into chat - it is *not* clientside or [ephemeral](https://discord.com/developers/docs/resources/message#message-object-message-flags).
+
 ### Modifying message content before it is sent
 
 The legacy command system can also be used to replace text in messages before they are sent.
