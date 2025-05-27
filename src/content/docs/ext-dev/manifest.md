@@ -42,6 +42,7 @@ This is an example manifest, with every value filled in:
   // see below for the various settings types
   "settings": {
     "exampleSetting": {
+      "advice": "none",
       "displayName": "Example setting",
       "type": "boolean",
       "default": true
@@ -73,6 +74,9 @@ moonlight will implicitly enable the extensions that your extension depends on. 
 There are many settings types that you can use to configure your extension in Moonbase. The types for these are available [here](https://github.com/moonlight-mod/moonlight/blob/main/packages/types/src/config.ts).
 
 All settings types take optional `displayName` and `description` arguments, as well as a `default`. If a default is not provided, and the user hasn't configured the extension, the value returned from `moonlight.getConfigOption` will be undefined.
+
+Settings also take an optional `advice` argument which advices the user to reload the client, restart the client, or do nothing.
+If no `advice` is provided the default is to suggest a reload, this is different from setting to to `"reload"` which indicates a required reload.
 
 Note that the type defined is purely for what component to use in Moonbase - it is up to you to ensure that you save the right type to the config file.
 
