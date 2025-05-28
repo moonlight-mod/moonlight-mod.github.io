@@ -26,7 +26,9 @@ These logs contain a lot of information that may be sensitive to you (e.g. your 
 These logs are present in Discord's config folder:
 
 - Windows: `%AppData%/discord`
-- Linux: `~/.config/discord`
+- Linux:
+  - Normal: `~/.config/discord`
+  - Flatpak: `~/.var/app/com.discord.Discord/config/discord`
 
 The folder name changes depending on your Discord branch (e.g. `discordptb` or `discordcanary`).
 
