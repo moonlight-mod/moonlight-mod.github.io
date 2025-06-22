@@ -81,6 +81,11 @@ Names in the mappings repo are a combination of:
 
 If you're stuck figuring out what something is, feel free to ask! Community members may be able to help make an educated guess.
 
+## Figuring out what mappings are broken
+
+Broken export remappings will log to the console.
+Mappings with broken module finds will be inside the `moonlight.moonmap.processors` array.
+
 ## Embedding into other client mods
 
 After setting up moonmap and LunAST, call the load function before Webpack initializes:
