@@ -1,0 +1,117 @@
+---
+import type { ExtensionManifest } from "./shared";
+import ExtensionInfo from "./ExtensionInfo.astro";
+import { Tabs, TabItem, LinkButton } from "@astrojs/starlight/components";
+import AnchorHeading from "@astrojs/starlight/components/AnchorHeading.astro";
+import { marked } from "marked";
+import type { StarlightIcon } from "@astrojs/starlight/types";
+
+interface Props {
+  extensions: ExtensionManifest[];
+  ext: ExtensionManifest;
+}
+
+const { extensions, ext } = Astro.props;
+
+const tagline = ext.meta?.tagline;
+const description = ext.meta?.description;
+const changelog = ext.meta?.changelog;
+const settings = ext.settings;
+
+type ExtensionLink = {
+  href?: string;
+  icon: StarlightIcon;
+  title: string;
+};
+
+const links = (
+  [
+    {
+      href: ext.meta?.source,
+      icon: "seti:html",
+      title: "View source"
+    },
+    {
+      href: ext.meta?.donate,
+      icon: "heart",
+      title: "Donate"
+    },
+    {
+      href: ext.download,
+      icon: "download",
+      title: "Download .asar"
+    }
+  ] satisfies ExtensionLink[]
+).filter((link) => link.href != null);
+---
+
+<AnchorHeading level="2" id={ext.id}>
+  {ext.meta?.name || ext.id}
+</AnchorHeading>
+
+{
+  tagline != null && (
+    <div class="tagline">
+      <Fragment set:html={marked(tagline)} />
+    </div>
+  )
+}
+
+<Tabs>
+  <TabItem label="Info">
+    <ExtensionInfo {extensions} {ext} />
+  </TabItem>
+
+  {
+    description != null && (
+      <TabItem label="Description">
+        <Fragment set:html={marked(description)} />
+      </TabItem>
+    )
+  }
+
+  {
+    changelog != null && (
+      <TabItem label="Changelog">
+        <Fragment set:html={marked(changelog)} />
+      </TabItem>
+    )
+  }
+
+  {
+    settings != null && (
+      <TabItem label="Settings">
+        <ul>
+          {Object.entries(settings).map(([key, value]) => (
+            <li>
+              <span title={value.description}>{value.displayName ?? key}</span>
+            </li>
+          ))}
+        </ul>
+      </TabItem>
+    )
+  }
+
+  {
+    links.length !== 0 && (
+      <TabItem label="Links">
+        {links.map((link) => (
+          <LinkButton
+            href={link.href!}
+            icon={link.icon}
+            iconPlacement="start"
+            variant="secondary"
+          >
+            {link.title}
+          </LinkButton>
+        ))}
+      </TabItem>
+    )
+  }
+</Tabs>
+
+<style>
+  .tagline {
+    margin: 0;
+  }
+</style>

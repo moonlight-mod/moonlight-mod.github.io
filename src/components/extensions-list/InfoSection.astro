@@ -1,0 +1,23 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="infoSection">
+  <span class="infoSectionTitle">{title}</span>
+  <slot />
+</div>
+
+<style>
+  .infoSection {
+    margin: 0 !important;
+  }
+
+  .infoSectionTitle {
+    font-weight: 700;
+    display: block;
+  }
+</style>

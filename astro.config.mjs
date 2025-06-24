@@ -76,6 +76,10 @@ export default defineConfig({
         {
           label: "moonlight developers",
           autogenerate: { directory: "dev" }
+        },
+        {
+          label: "Extensions list",
+          link: "/extensions-list"
         }
       ],
       components: {

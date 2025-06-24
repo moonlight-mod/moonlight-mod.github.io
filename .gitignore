@@ -22,3 +22,5 @@ pnpm-debug.log*
 # shut up
 /.vscode
 /.idea
+
+/.extensions-list-cache.json

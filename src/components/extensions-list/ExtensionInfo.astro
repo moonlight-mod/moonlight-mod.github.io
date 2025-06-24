@@ -1,0 +1,123 @@
+---
+import InfoSection from "./InfoSection.astro";
+import { Badge } from "@astrojs/starlight/components";
+import {
+  tryGetExtensionName,
+  tagNames,
+  ExtensionTag,
+  DependencyType,
+  type ExtensionManifest,
+  type Dependency
+} from "./shared";
+
+interface Props {
+  extensions: ExtensionManifest[];
+  ext: ExtensionManifest;
+}
+
+const { extensions, ext } = Astro.props;
+
+const authors = ext.meta?.authors;
+const tags = ext.meta?.tags;
+const version = ext.version;
+
+const dependencies: Dependency[] = [];
+const incompatible: Dependency[] = [];
+
+if (ext.dependencies != null) {
+  dependencies.push(
+    ...ext.dependencies.map((dep) => ({
+      id: dep,
+      type: DependencyType.Dependency
+    }))
+  );
+}
+
+if (ext.suggested != null) {
+  dependencies.push(
+    ...ext.suggested.map((dep) => ({
+      id: dep,
+      type: DependencyType.Optional
+    }))
+  );
+}
+
+if (ext.incompatible != null) {
+  incompatible.push(
+    ...ext.incompatible.map((dep) => ({
+      id: dep,
+      type: DependencyType.Incompatible
+    }))
+  );
+}
+---
+
+<div class="extensionInfo">
+  {
+    authors != null && (
+      <InfoSection title="Authors">
+        <span>
+          {authors
+            .map((author) =>
+              typeof author === "string" ? author : author.name
+            )
+            .join(", ")}
+        </span>
+      </InfoSection>
+    )
+  }
+
+  {
+    tags != null && (
+      <InfoSection title="Tags">
+        {tags.map((tag) => (
+          <Badge
+            class="badge"
+            text={tagNames[tag]}
+            variant={tag === ExtensionTag.DangerZone ? "danger" : "note"}
+          />
+        ))}
+      </InfoSection>
+    )
+  }
+
+  {
+    dependencies.length > 0 && (
+      <InfoSection title="Dependencies">
+        {dependencies.map((dep) => (
+          <Badge class="badge" text={tryGetExtensionName(extensions, dep.id)} />
+        ))}
+      </InfoSection>
+    )
+  }
+
+  {
+    incompatible.length > 0 && (
+      <InfoSection title="Incompatible">
+        {incompatible.map((dep) => (
+          <Badge class="badge" text={tryGetExtensionName(extensions, dep.id)} />
+        ))}
+      </InfoSection>
+    )
+  }
+
+  {
+    version != null && (
+      <InfoSection title="Version">
+        <span>{version}</span>
+      </InfoSection>
+    )
+  }
+</div>
+
+<style>
+  .extensionInfo {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    margin-right: 0.4em;
+  }
+</style>
