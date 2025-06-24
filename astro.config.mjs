@@ -42,11 +42,19 @@ export default defineConfig({
         replacesTitle: true
       },
       favicon: "/favicon.png",
-      social: {
+      social: [
         // It's Bluesky not BlueSky lol
-        blueSky: "https://bsky.app/profile/did:plc:uiwhayeayjutykag74l3yits",
-        github: "https://github.com/moonlight-mod/moonlight"
-      },
+        {
+          icon: "blueSky",
+          label: "Bluesky",
+          href: "https://bsky.app/profile/did:plc:uiwhayeayjutykag74l3yits"
+        },
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/moonlight-mod/moonlight"
+        }
+      ],
       editLink: {
         baseUrl:
           "https://github.com/moonlight-mod/moonlight-mod.github.io/edit/main/"
