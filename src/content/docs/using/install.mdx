@@ -162,6 +162,17 @@ environment.systemPackages = [
 }
 ```
 
+The flake references moonlight's source code directly, which makes it useful for switching to the nightly branch (e.g. if moonlight stable is broken), or to use the most recent changes without waiting for them to land in nixpkgs.
+
+You can use the latest `moonlight` package by explicitly passing it to the Discord override:
+
+```nix
+discord.override {
+  withMoonlight = true;
+  moonlight = inputs.moonlight.packages.${pkgs.system}.moonlight;
+}
+```
+
 If you use home-manager, you can import moonlight's module, and copy [your existing moonlight config](/using/getting-started#editing-moonlights-config) into your configuration:
 
 ```nix title="home.nix"
