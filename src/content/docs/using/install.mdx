@@ -122,7 +122,7 @@ moonlight can be installed as a browser extension. To use it, [manually build mo
 The output extension will be at `dist/browser`. Chrome users can check "Developer mode" and click "Load unpacked" in `chrome://extensions`, and Firefox users can click "Load Temporary Add-on" in `about:debugging`.
 
 :::caution
-Browser support is experimental and may be unreliable. Developing extensions or using custom repositories is not supported with the browser extension.
+Browser support is experimental and may be unreliable. Developing extensions from a local directory is not supported with the browser extension, and custom repositories may run into CORS issues (i.e. if their servers do not set `Access-Control-Allow-Origin: *`).
 :::
 
 ## Nix
