@@ -4,6 +4,7 @@ description: Common patterns when writing extensions
 sidebar:
   order: 3
 ---
+import { FileTree } from "@astrojs/starlight/components";
 
 ## Extension entrypoints
 
@@ -36,7 +37,7 @@ Remember to [restart the dev server](/ext-dev/pitfalls#restarting-dev-mode-is-re
 
 On the web target (`index.ts`), you can export [patches](/ext-dev/webpack#patching), [Webpack modules](/ext-dev/webpack#webpack-module-insertion), and CSS styles:
 
-```ts
+```ts title="index.ts"
 import type { ExtensionWebExports } from "@moonlight-mod/types";
 
 export const patches: ExtensionWebExports["patches"] = [];
@@ -73,6 +74,37 @@ export default function MyElement() {
 ```
 
 You can use this React component in a [patch](/ext-dev/webpack#patching) or through an [extension library](/ext-dev/api#app-panels). React must be imported into the scope [when using JSX](/ext-dev/pitfalls#using-jsx).
+
+## Using custom styles
+
+Custom CSS can be placed in a file named `style.css`:
+
+<FileTree>
+- src/
+  - sampleExtension/
+    - manifest.json
+    - **style.css**
+</FileTree>
+
+```css title="style.css"
+.sampleExtension-whatever {
+  /* your styles go here... */
+}
+```
+
+Alternatively, you can [export CSS as strings from `index.ts`](#exporting-from-your-extension):
+
+```ts title="index.ts"
+import type { ExtensionWebExports } from "@moonlight-mod/types";
+
+export const styles: ExtensionWebExports["styles"] = [
+  `
+.sampleExtension-whatever {
+  /* your styles go here... */
+}
+  `
+];
+```
 
 ## Using Flux
 
