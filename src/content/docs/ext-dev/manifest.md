@@ -51,7 +51,12 @@ This is an example manifest, with every value filled in:
 
   // extra URLs to allow/block
   "cors": ["https://example.com"],
-  "blocked": ["https://example.com"]
+  "blocked": ["https://example.com"],
+
+  // extra CSP rules
+  "csp": {
+    "frame-src": ["https://example.com"]
+  }
 }
 ```
 
