@@ -57,7 +57,11 @@ You can set breakpoints on Webpack modules to inspect the variables at runtime. 
 
 React DevTools allows you to inspect the React component tree easier, instead of its representation with the DOM. You can view the sources of components and their props this way.
 
-Either [use the rehosted version](https://moon.light.pm/files/reactdevtools.zip) or [download the extension and extract it yourself](https://react.dev/learn/react-developer-tools). Use the "DevTools Extensions" extension to load it, and remember to restart Discord fully after configuring it. Once loaded, a new Components tab will appear in DevTools.
+[Download the extension and extract it](https://nightly.link/facebook/react/workflows/runtime_build_and_test/main/react-devtools-chrome-extension.zip). Use the "DevTools Extensions" extension to load it, and remember to restart Discord fully after configuring it. Once loaded, a new Components tab will appear in DevTools.
+
+:::note
+Due to an issue in Electron, you may have to refresh the page after launching the client and opening DevTools to get React DevTools' tabs to appear.
+:::
 
 You can use the element picker to select components. Props are available on the right side. Click the bug icon to view data about the component. Click the bracket icon to view the source of the component.
 
