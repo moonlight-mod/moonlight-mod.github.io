@@ -5,13 +5,13 @@ sidebar:
   order: 8
 ---
 
-moonlight comes with [mappings](https://github.com/moonlight-mod/mappings) that automatically rename Discord's Webpack modules for you. You can import and use these modules in your extensions.
+moonlight comes with [mappings](https://github.com/moonlight-mod/moonlight/tree/main/packages/mappings) that automatically rename Discord's Webpack modules for you. You can import and use these modules in your extensions.
 
 mappings automatically detects unknown modules and remaps them to have consistent module IDs and export names.
 
 ## Browsing mappings
 
-There is no search system for mappings yet, but you can browse [the source repository](https://github.com/moonlight-mod/mappings) instead. Press `/` on your keyboard to search in the GitHub web UI.
+There is no search system for mappings yet, but you can browse [the source repository](https://github.com/moonlight-mod/moonlight/tree/main/packages/mappings) instead. Press `/` on your keyboard to search in the GitHub web UI.
 
 ## Notable modules
 

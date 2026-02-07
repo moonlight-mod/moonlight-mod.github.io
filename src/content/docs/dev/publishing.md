@@ -9,46 +9,30 @@ This page is mainly here for moonlight core developers who forget what they're d
 :::
 
 :::caution
-Version bumps are not done until a publish is required. Make sure to version bump moonlight (and types, if necessary) before publishing.
-
-When publishing to npm, versions are constant. Exercise caution.
+Version bumps are not done until a publish is required. When publishing to npm, versions are constant. Exercise caution.
 :::
 
 ## Publishing moonlight
 
-moonlight CI builds the `develop` branch automatically. This section is for publishing a new stable, versioned release.
+moonlight CI builds the `main` branch automatically. This section is for publishing a new stable, versioned release.
 
-- Checkout the `develop` branch.
-- Pull to ensure you have the latest changes.
 - Checkout the `main` branch.
-- Merge `develop` into `main`.
-- Update the version in the following files:
-  - `package.json`
-  - `packages/browser/manifest.json`
-  - `packages/browser/manifestv2.json`
-- Write `CHANGELOG.md`.
-  - Do not append to the changelog - remake it.
-- If any types changes were made in this release, [update the types version](#publishing-types).
+- Pull to ensure you have the latest changes.
+- Run `node scripts/version.mjs` to update the project version.
+  - If there were no changes to types or mappings, you can technically undo the version bump, though it's suggested to just leave it there out of caution. If there were any changes to mappings, types must always be updated to sync alongside it.
+- Write `CHANGELOG.md`. Do not append to the changelog - remake it.
 - Commit and push to `main`.
-  - Make sure to push before creating the tag, or you might confuse CI (reasons unknown).
-- Create a tag with the version, **starting with the character `v`**: `git tag vX.Y.Z`
+  - Make sure to push before creating the tag, or you might confuse CI.
+- Create a tag with the new version, **starting with the character `v`**: `git tag vX.Y.Z`
   - This `v` is very important. CI will not pick it up otherwise. The installers will not know what to do without it.
+  - Double triple check that you didn't mistype the version number (this has happened before).
 - Push the tag: `git push --tags`
-- Checkout the `develop` branch.
-- Merge `main` into `develop`.
-- Push to `develop`.
 
-## Publishing types
-
-- Update the version in `packages/types/package.json`.
-  - We originally didn't have the types version in sync with moonlight, but we're aiming to resync. Bump the patch version until we can eventually re-synchronize them.
-- Continue to publish a moonlight release like normal, and wait for CI to finish.
-- [Run the types workflow](https://github.com/moonlight-mod/moonlight/actions/workflows/types.yml) to manually trigger a release to npm.
-- If the manifest type was updated, regenerate the schema: `pnpx ts-json-schema-generator --path './packages/types/src/*.ts' --type ExtensionManifest -f ./tsconfig.json > ../moonlight-mod.github.io/public/manifest.schema.json`
+Packages will be published to npm alongside the GitHub release. If the extension manifest type was updated, regenerate the JSON Schema: `pnpx ts-json-schema-generator --path './packages/types/src/*.ts' --type ExtensionManifest -f ./tsconfig.json > ../moonlight-mod.github.io/public/manifest.schema.json`
 
 ## Publishing other libraries
 
-(e.g. moonmap, LunAST, mappings, create-extension)
+(e.g. moonmap, LunAST, create-extension)
 
 - Update package.json with a new version.
 - Commit and push to `main`.
@@ -56,7 +40,7 @@ moonlight CI builds the `develop` branch automatically. This section is for publ
   - Same reasoning as [above](#publishing-moonlight).
 - Push the tag: `git push --tags`
 - Wait for the package to be uploaded to npm.
-- Use [the update helper script](/dev/helper-scripts) to update the dependencies in moonlight if needed.
+- Update the dependencies in moonlight.
 
 ## Publishing the installer
 

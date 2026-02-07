@@ -14,11 +14,9 @@ Each package contains a `package.json` and a `tsconfig.json`. Most packages will
 
 ## Build system
 
-moonlight uses [esbuild](https://esbuild.github.io) as its build system. The build script (`build.mjs`) is a single file which handles building [each stage](#load-stages) of moonlight, as well as each [core extension](#core-extensions).
+moonlight uses [esbuild](https://esbuild.github.io) as its build system. The build script (`build.mjs`) is a single file which handles building [each stage](#load-stages) of moonlight, as well as each [core extension](#core-extensions). This build script shares code with custom extensions in [esbuild-config](https://github.com/moonlight-mod/moonlight/tree/main/packages/esbuild-config), so flaws like [needing dev server restarts](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios) apply to moonlight itself as well.
 
-This build script is separate to [our esbuild-config repository](https://github.com/moonlight-mod/esbuild-config), which is used by third-party developers in their own extensions. A future goal is to use the esbuild-config repository in moonlight itself ([see open issue](https://github.com/moonlight-mod/moonlight/issues/222)). Even though they do not share code, the implementation is similar, so flaws like [needing dev server restarts](/ext-dev/pitfalls#restarting-dev-mode-is-required-in-some-scenarios) apply to moonlight itself as well.
-
-esbuild's plugin API is very simple, and as such, moonlight's build script contains [a lot of hacks to get desired behavior](https://github.com/moonlight-mod/moonlight/blob/c01adbed21f7d7963f1ccb3038c8550fcd6343f0/build.mjs#L170-L175). In the future, moonlight and the [extension template](https://github.com/moonlight-mod/create-extension) may switch to another build system, but there are no plans to switch from esbuild at this time.
+In the future, moonlight and the [extension template](https://github.com/moonlight-mod/create-extension) may switch to another build system, but there are no plans to switch from esbuild at this time.
 
 ## Core
 
@@ -138,11 +136,4 @@ After processing the extensions, it calls the `window._moonlightWebLoad` functio
 
 ## Other dependencies
 
-moonlight uses some other packages that are not in the workspace, like [LunAST](https://github.com/moonlight-mod/lunast), [moonmap](https://github.com/moonlight-mod/moonmap), and [mappings](https://github.com/moonlight-mod/mappings). These packages do *not* use esbuild, and instead use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html), because they do not need any special config and are published on npm.
-
-Sometimes, you may need to modify one of these libraries, and test them in a local copy of moonlight. This is a known pain point of working with moonlight, and there are several ways to accomplish this:
-
-- Use [pnpm link](https://pnpm.io/cli/link) or [the link script](/dev/helper-scripts#linkmjs). Several developers have reported weird desyncs after linking packages, so exercise caution when using these.
-- Edit the `package.json` of the desired package(s) to use the `file:` protocol.
-
-Remember to undo your changes when you're done linking the other library, and make sure that `pnpm-lock.yaml` hasn't been changed by your testing.
+moonlight uses some other packages that are not in the workspace, like [LunAST](https://github.com/moonlight-mod/lunast) and [moonmap](https://github.com/moonlight-mod/moonmap). Additionally, some packages in the moonlight monorepo must be published to npm, like [mappings](https://github.com/moonlight-mod/moonlight/tree/main/packages/mappings) and [esbuild-config](https://github.com/moonlight-mod/moonlight/tree/main/packages/esbuild-config). These packages do *not* use esbuild, and instead use [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html).

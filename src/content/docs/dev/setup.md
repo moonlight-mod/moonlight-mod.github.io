@@ -18,7 +18,5 @@ For more information on project structure, [see the dedicated page](/dev/project
 
 - Ensure your commits pass Prettier/ESLint. This is a requirement for merge.
   - moonlight uses [husky](https://typicode.github.io/husky) to check lints on commit. This should have automatically been setup for you when running `pnpm install`.
-- Please make PRs to the `develop` branch instead of `main`.
-  - `develop` is merged into `main` when moonlight updates happen. Our in-progress work resides on `develop`.
 - Don't break the existing API surface.
   - Library extensions and moonlight globals cannot change in a way that breaks existing extensions (unless there is an upcoming API bump).

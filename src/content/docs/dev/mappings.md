@@ -5,7 +5,7 @@ sidebar:
   order: 5
 ---
 
-[The mappings repository](https://github.com/moonlight-mod/mappings) contains a collection of known Webpack modules with human-readable names. It finds Webpack modules and creates an alias to them, as well as remapping exports.
+[The mappings package](https://github.com/moonlight-mod/moonlight/tree/main/packages/mappings) contains a collection of known Webpack modules with human-readable names. It finds Webpack modules and creates an alias to them, as well as remapping exports.
 
 ## Remapping in your own extension
 
@@ -56,18 +56,11 @@ export default Exports;
 
 When adding a new module:
 
-- `node generate.js imports --write` to write the new `src/modules.ts`
-
-When adding types to a module:
-
-- Add its path and a name to `generate.js`
+- If the module has types, add its path and a name to `generate.js`
   - Name should be the last part of the path except in cases where it breaks syntax (e.g. `highlight.js` -> `HighlightJS`)
   - Mappings for CSS class names should replace `.css` with `CSS`
-- `node generate.js types --write` to generate the new type index
-- `node generate.js declares "@moonlight-mod/wp/" > ../moonlight/packages/types/src/mappings.d.ts` to update import statements in moonlight
-  - You don't have to do this unless you're a moonlight core developer
-
-Remember to format with Prettier!
+- In `packages/mappings`, run `node generate.js`
+- Format with Prettier
 
 ## Finding names
 
