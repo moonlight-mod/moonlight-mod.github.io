@@ -156,7 +156,9 @@ environment.systemPackages = [
 ```nix title="flake.nix"
 {
   inputs.moonlight = {
-    url = "github:moonlight-mod/moonlight"; # Add `/develop` to the flake URL to use nightly.
+    # This corresponds to the nightly releases of moonlight.
+    # For a stable release, add the version to the end of the URL: "github:moonlight-mod/moonlight/vX.Y.Z"
+    url = "github:moonlight-mod/moonlight";
     inputs.nixpkgs.follows = "nixpkgs";
   }
 }
